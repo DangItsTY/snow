@@ -1,0 +1,99 @@
+#login {
+	text-align: center;
+	width: 100%;
+}
+#login input {
+	margin-top: 21px;
+	padding: 8px;
+}
+#login button {
+	margin-top: 21px;
+	padding: 8px;
+}
+#signup {
+	text-align: center;
+	width: 100%;
+}
+#signup input {
+	margin-top: 13px;
+	padding: 8px;
+}
+#signup button {
+	margin-top: 13px;
+	padding: 8px;
+}
+#cart {
+	text-align: center;
+}
+#cart select {
+	padding: 5px;
+}
+#cart button {
+	padding: 8px;
+}
+#shop {
+	text-align: center;
+}
+#shop select {
+	padding: 5px;
+}
+#shop button {
+	padding: 8px;
+}
+.centered-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+.centered-content {
+}
+
+.item-container {
+}
+.item {
+	display: flex;
+	margin: 8px;
+	box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.4);
+}
+.picture {
+	flex: 0 0 150px;
+}
+.info {
+	flex: 1 1 auto;
+}
+footer {
+	margin-top: 55px;
+}
+.howtoapp {
+	margin: 8px;
+}
+.howtoapp summary {
+	margin-bottom: 34px;
+}
+.howtoapp img {
+	width: 100%;
+    margin: 21px 0px;
+}
+
+/*
+.item-container {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+}
+.item {
+	flex: 0 0 50%;
+}
+.picture {
+	text-align: center;
+}
+.label {
+	text-align: center;
+}
+*/
+
+body {
+	margin: 0px;
+}
