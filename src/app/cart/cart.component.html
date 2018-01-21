@@ -1,0 +1,24 @@
+<section id="cart">
+	<h1>Supplies For Johnny</h1>
+	<h2>Amazing Snow</h2>
+	<section id="cartlist">
+		<section *ngFor="let entry of model" id="item-container" class="item-container">
+		<article class="item">
+			<img [src]="entry.image" class="picture" />
+			<div class="info">
+				<p class="label">{{entry.label}}</p>
+				<label>Amount:</label>
+				<select>
+					<option value="1">0</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+				</select>
+			</div>
+		</article>
+		</section>
+	</section>
+	<p><button onclick="viewShop()">Find More Supplies</button></p>
+</section>

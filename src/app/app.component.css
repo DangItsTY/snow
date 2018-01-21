@@ -40,6 +40,18 @@
 #shop button {
 	padding: 8px;
 }
+#store {
+	text-align: center;
+	width: 100%;
+}
+#store input {
+	margin-top: 13px;
+	padding: 8px;
+}
+#store button {
+	margin-top: 13px;
+	padding: 8px;
+}
 .centered-container {
 	display: flex;
 	flex-direction: column;
