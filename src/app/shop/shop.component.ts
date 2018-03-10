@@ -24,7 +24,7 @@ export class ShopComponent {
 	}
   
 	ngOnInit() {
-		this.userId = JSON.parse(sessionStorage.getItem("user")).id;
+		this.userId = sessionStorage.getItem("user");
 		this.getShopInfo();
 		this.getAllShopItems();
 	}

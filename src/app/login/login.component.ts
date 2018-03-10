@@ -18,17 +18,18 @@ export class LoginComponent {
 	
 	onSubmit() {
 		console.log("logging in");
-		this.router.navigateByUrl('/cart');
-	}
-	
-	onSubmit2() {
 		var formData = new FormData();
 		for (var key in this.model) {
 			formData.append(key, this.model[key]);
-		}	
+		}
 		this.http
-		  .post('http://localhost:8080/fileupload', formData)
-		  .subscribe();
+		  .post('http://localhost:8080/login' , formData)
+		  .subscribe(res => {
+			  var result = res.json();
+			  result = result[0].id;
+			  sessionStorage.setItem("user", result);
+			  this.router.navigate(['/shop']);
+		  });
 	}
 }
 export class Account {

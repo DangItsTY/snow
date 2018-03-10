@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core'
 import {Http} from '@angular/http'
+import {Router} from '@angular/router'
 
 @Component({
 	selector: 'signup',
@@ -9,7 +10,7 @@ import {Http} from '@angular/http'
 export class SignupComponent {
 	model = new Account()
 	
-	constructor(private http: Http) {
+	constructor(private http: Http, private router: Router) {
 	}
   
 	ngOnInit() {
@@ -22,7 +23,9 @@ export class SignupComponent {
 		}		
 		this.http
 		  .post('http://localhost:8080/addaccount', formData)
-		  .subscribe();
+		  .subscribe(res => {
+			  this.router.navigate(['/login']);
+		  });
 	}
 }
 export class Account {

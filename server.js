@@ -25,6 +25,17 @@ app.use(function(req, res, next) {
 	next();
 });
 
+app.post('/login', function(req, res) {
+    var form = new formidable.IncomingForm();
+	form.parse(req, function (err, fields, files) {
+		var query = "SELECT id FROM users WHERE username='" + fields.username + "'";
+		sql.query(query, function (err, result) {
+			if (err) throw err;
+			res.send(result);
+		});
+	});
+});
+
 app.post('/fileupload/:id', function(req, res) {
     var form = new formidable.IncomingForm();
 	form.parse(req, function (err, fields, files) {
@@ -48,7 +59,7 @@ app.post('/addaccount', function(req, res) {
     var form = new formidable.IncomingForm();
 	form.parse(req, function (err, fields, files) {		
 		console.log(fields);
-		var query = "INSERT INTO account (firstname, lastname, email, phone, storename, storeaddress, username, password) VALUES ('"+fields.firstname+"', '"+fields.lastname+"', '"+fields.email+"', '"+fields.phone+"', '"+fields.storename+"', '"+fields.storeaddress+"', '"+fields.username+"', '"+fields.password+"')";
+		var query = "INSERT INTO users (firstname, lastname, email, phone, storename, storeaddress, username, password) VALUES ('"+fields.firstname+"', '"+fields.lastname+"', '"+fields.email+"', '"+fields.phone+"', '"+fields.storename+"', '"+fields.storeaddress+"', '"+fields.username+"', '"+fields.password+"')";
 		sql.query(query, function (err, result) {
 			if (err) throw err;
 			console.log("1 record inserted");
