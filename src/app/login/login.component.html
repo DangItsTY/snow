@@ -2,10 +2,13 @@
 <section id="login" class="centered-container">
 <div class="centered-content">
 	<h1>Supply</h1>
-	<input type="text" name="username" placeholder="username"><br>
-	<input type="password" name="password" placeholder="password"><br>
-	<input type="submit" onclick="viewCartFromLoginsignup()" value="Login"><br>
-	<p>or sign up below</p>
+	<form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+	<input [(ngModel)]="model.username" type="text" name="username" placeholder="username"><br>
+	<input [(ngModel)]="model.password" type="password" name="password" placeholder="password"><br>
+	<input type="submit" value="Login">
+	</form>
+	<p>Or</p>
+	<a routerLink="/signup">Sign Up</a>
 </div>
 </section>
 </section>

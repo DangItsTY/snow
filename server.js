@@ -6,14 +6,14 @@ var formidable = require('formidable');
 var fs = require('fs');
 var mysql = require('mysql');
 
-var con = mysql.createConnection({
+var sql = mysql.createConnection({
   host: "localhost",
   user: "dbadmin",
   password: "lockSmith123!@#",
   database: "snow"
 });
 
-con.connect(function(err) {
+sql.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
 });
@@ -25,7 +25,7 @@ app.use(function(req, res, next) {
 	next();
 });
 
-app.post('/fileupload', function(req, res) {
+app.post('/fileupload/:id', function(req, res) {
     var form = new formidable.IncomingForm();
 	form.parse(req, function (err, fields, files) {
 		var file = files[Object.keys(files)[0]];
@@ -36,14 +36,42 @@ app.post('/fileupload', function(req, res) {
 			res.write('File uploaded and moved!');
 			res.end();
 		});
-		
-		var sql = "INSERT INTO item (name, description, price, owner) VALUES ('"+fields.name+"', '"+fields.description+"', '"+fields.price+"', 1)";
-		con.query(sql, function (err, result) {
+		var query = "INSERT INTO items (name, description, price, owner, image) VALUES ('"+fields.name+"', '"+fields.description+"', '"+fields.price+"', "+req.params.id+", '/images/"+file.name+"')";
+		sql.query(query, function (err, result) {
 			if (err) throw err;
 			console.log("1 record inserted");
 		});
 	});
-	
-	
 });
+
+app.post('/addaccount', function(req, res) {
+    var form = new formidable.IncomingForm();
+	form.parse(req, function (err, fields, files) {		
+		console.log(fields);
+		var query = "INSERT INTO account (firstname, lastname, email, phone, storename, storeaddress, username, password) VALUES ('"+fields.firstname+"', '"+fields.lastname+"', '"+fields.email+"', '"+fields.phone+"', '"+fields.storename+"', '"+fields.storeaddress+"', '"+fields.username+"', '"+fields.password+"')";
+		sql.query(query, function (err, result) {
+			if (err) throw err;
+			console.log("1 record inserted");
+		});
+	});
+});
+
+app.get('/allShopItems/:id', function(req, res) {
+	var query = "SELECT * FROM items WHERE owner=" + req.params.id;
+	sql.query(query, function (err, result) {
+		if (err) throw err;
+		console.log("query success");
+		res.send(result);
+	});
+});
+
+app.get('/shopInfo/:id', function(req, res) {
+	var query = "SELECT * FROM users WHERE id=" + req.params.id + " LIMIT 1";
+	sql.query(query, function (err, result) {
+		if (err) throw err;
+		console.log("query success");
+		res.send(result);
+	});
+});
+
 app.listen(8080);

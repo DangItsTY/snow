@@ -1,0 +1,22 @@
+INSERT INTO `snow`.`users`
+(
+`firstname`,
+`lastname`,
+`email`,
+`phone`,
+`storename`,
+`storeaddress`,
+`username`,
+`password`
+)
+VALUES
+(
+'Bob',
+'Smith',
+'bobsmith@email.com',
+1234567890,
+'Bob Smith Store',
+'123 Street, City, State 12345',
+'bobsmith',
+'password'
+);

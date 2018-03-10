@@ -1,16 +1,16 @@
 <section id="loginsignup">
 <section id="signup" class="centered-container">
-<div class="centered-content">
-	<input type="text" name="firstname" placeholder="first name"><br>
-	<input type="text" name="lastname" placeholder="last name"><br>
-	<input type="email" name="email" placeholder="email"><br>
-	<input type="tel" name="phone" placeholder="phone"><br>
-	<input type="text" name="storename" placeholder="store name"><br>
-	<input type="text" name="storeaddress" placeholder="store address"><br>
-	<input type="text" name="username" placeholder="username"><br>
-	<input type="password" name="password" placeholder="password"><br>
-	<input type="password" name="password" placeholder="confirm password"><br>
-	<input type="submit" onclick="viewCartFromLoginsignup()" value="Sign Up"><br>
-</div>
+<form class="centered-content" (ngSubmit)="onSubmit()" #signupForm="ngForm">
+	<input [(ngModel)]="model.firstname" type="text" name="firstname" placeholder="first name" required><br>
+	<input [(ngModel)]="model.lastname" type="text" name="lastname" placeholder="last name" required><br>
+	<input [(ngModel)]="model.email" type="email" name="email" placeholder="email" required><br>
+	<input [(ngModel)]="model.phone" type="tel" name="phone" placeholder="phone" required><br>
+	<input [(ngModel)]="model.storename" type="text" name="storename" placeholder="store name" required><br>
+	<input [(ngModel)]="model.storeaddress" type="text" name="storeaddress" placeholder="store address" required><br>
+	<input [(ngModel)]="model.username" type="text" name="username" placeholder="username" required><br>
+	<input [(ngModel)]="model.password" type="password" name="password" placeholder="password" required><br>
+	<input [(ngModel)]="model.passwordconfirm" type="password" name="passwordconfirm" placeholder="confirm password" required><br>
+	<button type="submit" [disabled]="!signupForm.form.valid">Sign Up</button>
+</form>
 </section>
 </section>

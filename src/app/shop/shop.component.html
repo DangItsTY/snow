@@ -1,0 +1,21 @@
+<section id="shop">
+	<h1>Supplies For {{userModel.firstname}}</h1>
+	<p><u>{{userModel.storename}}</u></p>
+	<section id="shoplist">
+		<section *ngFor="let model of models" id="item-container" class="item-container">
+		<article class="item">
+			<img [src]="model.image" class="picture" />
+			<div class="info">
+				<div>
+					<div class="label"><strong>{{model.name}}</strong></div>
+					<div class="description"><small>{{model.description}}</small></div>
+				</div>
+				<div>
+					<p class="price">Price: ${{model.price}}</p>
+				</div>
+			</div>
+		</article>
+		</section>
+	</section>
+	<a [routerLink]="['/newitem']"><button>Add Item</button></a>
+</section>

@@ -1,0 +1,24 @@
+INSERT INTO `snow`.`request`
+(`id`,
+`created`,
+`updated`,
+`requestor`,
+`item`,
+`quantity`,
+`state`,
+`status`,
+`by`,
+`delivery`,
+`received`)
+VALUES
+(<{id: }>,
+<{created: CURRENT_TIMESTAMP}>,
+<{updated: CURRENT_TIMESTAMP}>,
+<{requestor: }>,
+<{item: }>,
+<{quantity: }>,
+<{state: }>,
+<{status: }>,
+<{by: }>,
+<{delivery: }>,
+<{received: }>);

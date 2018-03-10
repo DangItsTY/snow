@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component'
 import { SignupComponent } from './signup/signup.component'
 import { AddhomeComponent } from './addhome/addhome.component'
 import { CartComponent } from './cart/cart.component'
+import { ShopComponent } from './shop/shop.component'
 
 const appRoutes: Routes = [
 	{
@@ -32,6 +33,15 @@ const appRoutes: Routes = [
 		path: 'cart',
 		component: CartComponent
 	},
+	{
+		path: 'shop',
+		component: ShopComponent
+	},
+	{
+		path: '',
+		redirectTo: '/login',
+		pathMatch: 'full'
+	},
   /* { path: 'hero/:id',      component: HeroDetailComponent },
   {
     path: 'heroes',
@@ -53,6 +63,7 @@ const appRoutes: Routes = [
 	SignupComponent,
 	AddhomeComponent,
 	CartComponent,
+	ShopComponent,
   ],
   imports: [
     BrowserModule,

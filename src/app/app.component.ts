@@ -11,6 +11,7 @@ export class AppComponent {
 	constructor() { }
   
 	ngOnInit() {
+		this.loadTestData();
 		var main_element = document.getElementById("list");
 		var template_element = document.getElementById("template");
 		var cartdata = [
@@ -27,6 +28,13 @@ export class AppComponent {
 			{'image': 'taro.jpg', 'label': 'Taro', 'state': 'normal'},
 			{'image': 'thaitea.jpg', 'label': 'Thai Tea', 'state': 'normal'}
 		];
+	}
+	
+	loadTestData() {
+		var user = JSON.stringify({
+			'id': 3
+		});
+		sessionStorage.setItem("user", user);
 	}
 
 	/* //	Builds

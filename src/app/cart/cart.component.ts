@@ -19,6 +19,17 @@ export class CartComponent {
 	}
   
 	ngOnInit() {
+		this.getAllItems();
+	}
+	
+	getAllItems() {
+		console.log("getting all items...");
+		this.http
+		  .get('http://localhost:8080/allitems')
+		  .subscribe(res => {
+			  console.log("got all items!");
+			  console.log(res);
+		  });
 	}
 }
 
