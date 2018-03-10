@@ -63,6 +63,7 @@ app.post('/addaccount', function(req, res) {
 		sql.query(query, function (err, result) {
 			if (err) throw err;
 			console.log("1 record inserted");
+			res.send(result);
 		});
 	});
 });

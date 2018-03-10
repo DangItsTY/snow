@@ -24,6 +24,7 @@ export class SignupComponent {
 		this.http
 		  .post('http://localhost:8080/addaccount', formData)
 		  .subscribe(res => {
+			  console.log(res);
 			  this.router.navigate(['/login']);
 		  });
 	}
