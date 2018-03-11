@@ -38,6 +38,9 @@ export class Account {
 		public storename?: string,
 		public storeaddress?: string,
 		public username?: string,
-		public password?: string
-	){}
+		public password?: string,
+		public supplier?: any
+	){
+		this.supplier = false;
+	}
 }

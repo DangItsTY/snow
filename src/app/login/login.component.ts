@@ -28,7 +28,7 @@ export class LoginComponent {
 			  var result = res.json();
 			  result = result[0];
 			  sessionStorage.setItem("user", result.id);
-			  if (result.type == "supplier") {
+			  if (result.supplier) {
 				this.router.navigate(['/shop']);
 			  } else {
 				this.router.navigate(['/cart']);
