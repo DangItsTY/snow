@@ -28,7 +28,7 @@ app.use(function(req, res, next) {
 app.post('/login', function(req, res) {
     var form = new formidable.IncomingForm();
 	form.parse(req, function (err, fields, files) {
-		var query = "SELECT id FROM users WHERE username='" + fields.username + "'";
+		var query = "SELECT id, type FROM users WHERE username='" + fields.username + "'";
 		sql.query(query, function (err, result) {
 			if (err) throw err;
 			res.send(result);
@@ -101,7 +101,7 @@ app.get('/allShopItems/:id', function(req, res) {
 });
 
 app.get('/allSubscribedItems/:id', function(req, res) {
-	var query = "SELECT * FROM items WHERE owner=" + req.params.id;
+	var query = "SELECT * FROM subscriptions RIGHT JOIN items ON subscriptions.subscribed = items.id WHERE subscriptions.subscriber=" + req.params.id;
 	sql.query(query, function (err, result) {
 		if (err) throw err;
 		console.log("query success");

@@ -44,8 +44,20 @@ export class CartComponent {
 			  console.log(res);
 			  var results = res.json();
 			  this.models = results.map((currentValue, index, array) => {
-				  return new Item(currentValue.name, currentValue.description, "http://localhost:8080" + currentValue.image, currentValue.price);
+				  return new Item(currentValue.name, currentValue.description, "http://localhost:8080" + currentValue.image, currentValue.price, currentValue.amount, currentValue.id);
 			  });
+		  });
+	}
+	
+	updateAmount(event, model) {
+		var formData = new FormData();
+		for (var key in model) {
+			formData.append(key, model[key]);
+		}
+		this.http
+		  .post('http://localhost:8080/subscribe/'+this.userId , formData)
+		  .subscribe(res => {
+			  console.log("subscribed!");
 		  });
 	}
 	

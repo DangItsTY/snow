@@ -26,9 +26,13 @@ export class LoginComponent {
 		  .post('http://localhost:8080/login' , formData)
 		  .subscribe(res => {
 			  var result = res.json();
-			  result = result[0].id;
-			  sessionStorage.setItem("user", result);
-			  this.router.navigate(['/shop']);
+			  result = result[0];
+			  sessionStorage.setItem("user", result.id);
+			  if (result.type == "supplier") {
+				this.router.navigate(['/shop']);
+			  } else {
+				this.router.navigate(['/cart']);
+			  }
 		  });
 	}
 }
