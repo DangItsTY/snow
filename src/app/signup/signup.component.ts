@@ -22,7 +22,7 @@ export class SignupComponent {
 			formData.append(key, this.model[key]);
 		}		
 		this.http
-		  .post('http://localhost:8080/addaccount', formData)
+		  .post('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/addaccount', formData)
 		  .subscribe(res => {
 			  console.log(res);
 			  this.router.navigate(['/login']);

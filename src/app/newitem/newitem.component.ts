@@ -25,7 +25,7 @@ export class NewitemComponent {
 			formData.append(key, this.model[key]);
 		}
 		this.http
-		  .post('http://localhost:8080/fileupload/'+this.userId , formData)
+		  .post('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/fileupload/'+this.userId , formData)
 		  .subscribe(res => {
 			  this.router.navigate(['/shop']);
 		  });

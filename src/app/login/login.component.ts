@@ -23,7 +23,7 @@ export class LoginComponent {
 			formData.append(key, this.model[key]);
 		}
 		this.http
-		  .post('http://localhost:8080/login' , formData)
+		  .post('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/login' , formData)
 		  .subscribe(res => {
 			  var result = res.json();
 			  result = result[0];

@@ -11,6 +11,7 @@ export class AppComponent {
 	constructor() { }
   
 	ngOnInit() {
+		this.loadData();
 		var main_element = document.getElementById("list");
 		var template_element = document.getElementById("template");
 		var cartdata = [
@@ -27,6 +28,11 @@ export class AppComponent {
 			{'image': 'taro.jpg', 'label': 'Taro', 'state': 'normal'},
 			{'image': 'thaitea.jpg', 'label': 'Thai Tea', 'state': 'normal'}
 		];
+	}
+	
+	loadData() {
+		sessionStorage.setItem("hostname", "192.168.1.2");
+		sessionStorage.setItem("port", "8080");
 	}
 
 	/* //	Builds

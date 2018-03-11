@@ -24,7 +24,7 @@ export class ShopComponent {
 	getShopInfo() {
 		console.log("getting shop information...");
 		this.http
-		  .get('http://localhost:8080/shopInfo/' + this.userId)
+		  .get('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/shopInfo/' + this.userId)
 		  .subscribe(res => {
 			  console.log("got shop info", res);
 			  var results = res.json();
@@ -36,13 +36,13 @@ export class ShopComponent {
 	getAllShopItems() {
 		console.log("getting all shop items...");
 		this.http
-		  .get('http://localhost:8080/allShopItems/' + this.userId)
+		  .get('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/allShopItems/' + this.userId)
 		  .subscribe(res => {
 			  console.log("got all items!");
 			  console.log(res);
 			  var results = res.json();
 			  this.models = results.map((currentValue, index, array) => {
-				  return new Item(currentValue.name, currentValue.description, "http://localhost:8080" + currentValue.image, currentValue.price);
+				  return new Item(currentValue.name, currentValue.description, 'http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port") + currentValue.image, currentValue.price);
 			  });
 		  });
 	}

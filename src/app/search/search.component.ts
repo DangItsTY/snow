@@ -23,12 +23,12 @@ export class SearchComponent {
 	getAllItems() {
 		console.log("getting all items...");
 		this.http
-		  .get('http://localhost:8080/allItems')
+		  .get('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/allItems')
 		  .subscribe(res => {
 			  console.log("got all items!");
 			  var results = res.json();
 			  this.models = results.map((currentValue, index, array) => {
-				  return new Item(currentValue.name, currentValue.description, "http://localhost:8080" + currentValue.image, currentValue.price, 0, currentValue.id);
+				  return new Item(currentValue.name, currentValue.description, 'http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port") + currentValue.image, currentValue.price, 0, currentValue.id);
 			  });
 		  });
 	}
@@ -39,7 +39,7 @@ export class SearchComponent {
 			formData.append(key, model[key]);
 		}
 		this.http
-		  .post('http://localhost:8080/subscribe/'+this.userId , formData)
+		  .post('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/subscribe/'+this.userId , formData)
 		  .subscribe(res => {
 			  console.log("subscribed!");
 		  });

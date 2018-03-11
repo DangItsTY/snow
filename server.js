@@ -13,6 +13,9 @@ var sql = mysql.createConnection({
   database: "snow"
 });
 
+var hostname = "192.168.1.2";
+var port = 8080;
+
 sql.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
@@ -136,4 +139,4 @@ app.get('/shopperInfo/:id', function(req, res) {
 	});
 });
 
-app.listen(8080);
+app.listen(port, hostname);

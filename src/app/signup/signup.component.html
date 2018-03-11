@@ -9,7 +9,7 @@
 	<input [(ngModel)]="model.storeaddress" type="text" name="storeaddress" placeholder="store address" required><br>
 	<input [(ngModel)]="model.username" type="text" name="username" placeholder="username" required><br>
 	<input [(ngModel)]="model.password" type="password" name="password" placeholder="password" required><br>
-	<input [(ngModel)]="model.passwordconfirm" type="password" name="passwordconfirm" placeholder="confirm password" required><br>
+	<input type="password" name="passwordconfirm" placeholder="confirm password" required><br>
 	<button type="submit" [disabled]="!signupForm.form.valid">Sign Up</button>
 </form>
 </section>
