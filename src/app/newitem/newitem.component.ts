@@ -42,7 +42,9 @@ export class Item {
 		public name?: string,
 		public description?: string,
 		public image?: any,
-		public price?: string
+		public price?: string,
+		public amount?: number,
+		public id?: number
 	) {  }
 
 }

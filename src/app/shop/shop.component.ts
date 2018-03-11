@@ -13,14 +13,6 @@ export class ShopComponent {
 	userId;
 	
 	constructor(private http: Http) {
-		/*
-		this.models = [
-			{'image': 'assets/images/chocolate.jpg', 'label': 'Chocolate', 'state': 'normal'},
-			{'image': 'assets/images/coffee.jpg', 'label': 'Coffee', 'state': 'normal'},
-			{'image': 'assets/images/greentea.jpg', 'label': 'Green Tea', 'state': 'normal'},
-			{'image': 'assets/images/mango.jpg', 'label': 'Mango', 'state': 'normal'}
-		];
-		*/
 	}
   
 	ngOnInit() {

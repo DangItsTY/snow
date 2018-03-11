@@ -68,6 +68,29 @@ app.post('/addaccount', function(req, res) {
 	});
 });
 
+app.post('/subscribe/:id', function(req, res) {
+    var form = new formidable.IncomingForm();
+	form.parse(req, function (err, fields, files) {
+		var query = "UPDATE subscriptions SET amount="+fields.amount+" WHERE subscriber="+req.params.id+" AND subscribed="+fields.id;
+		sql.query(query, function (err, result) {
+			console.log(err);
+			console.log(result);
+			if (err) throw err;
+			if(result.affectedRows == 0) {
+				var query = "INSERT INTO subscriptions (subscriber, subscribed, amount) VALUES ("+req.params.id+", "+fields.id+", "+fields.amount+")";
+				sql.query(query, function (err, result) {
+					if (err) throw err;
+					res.send(result);
+					console.log("1 record inserted");
+				});
+			} else {
+				console.log(result);
+				res.send(result);
+			}
+		});
+	});
+});
+
 app.get('/allShopItems/:id', function(req, res) {
 	var query = "SELECT * FROM items WHERE owner=" + req.params.id;
 	sql.query(query, function (err, result) {
@@ -77,7 +100,34 @@ app.get('/allShopItems/:id', function(req, res) {
 	});
 });
 
+app.get('/allSubscribedItems/:id', function(req, res) {
+	var query = "SELECT * FROM items WHERE owner=" + req.params.id;
+	sql.query(query, function (err, result) {
+		if (err) throw err;
+		console.log("query success");
+		res.send(result);
+	});
+});
+
+app.get('/allItems', function(req, res) {
+	var query = "SELECT * FROM items";
+	sql.query(query, function (err, result) {
+		if (err) throw err;
+		console.log("query success");
+		res.send(result);
+	});
+});
+
 app.get('/shopInfo/:id', function(req, res) {
+	var query = "SELECT * FROM users WHERE id=" + req.params.id + " LIMIT 1";
+	sql.query(query, function (err, result) {
+		if (err) throw err;
+		console.log("query success");
+		res.send(result);
+	});
+});
+
+app.get('/shopperInfo/:id', function(req, res) {
 	var query = "SELECT * FROM users WHERE id=" + req.params.id + " LIMIT 1";
 	sql.query(query, function (err, result) {
 		if (err) throw err;

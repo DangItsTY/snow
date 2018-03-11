@@ -53,6 +53,15 @@
 	margin-top: 13px;
 	padding: 8px;
 }
+#search {
+	text-align: center;
+}
+#search select {
+	padding: 5px;
+}
+#search button {
+	padding: 8px;
+}
 .centered-container {
 	display: flex;
 	flex-direction: column;

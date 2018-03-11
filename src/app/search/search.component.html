@@ -1,6 +1,7 @@
-<section id="cart">
-	<h1>Orders For {{userModel.firstname}}</h1>
-	<section id="cartlist">
+<a [routerLink]="['/cart']">Back to cart</a>
+<section id="search">
+	<h1>Search For Items</h1>
+	<section id="searchlist">
 		<section *ngFor="let model of models" id="item-container" class="item-container">
 		<article class="item">
 			<img [src]="model.image" class="picture" />
@@ -14,8 +15,8 @@
 				</div>
 				<div>
 					<label>Amount:</label>
-					<select>
-						<option value="1">0</option>
+					<select [(ngModel)]="model.amount" (change)="updateAmount($event, model)">
+						<option value="0">0</option>
 						<option value="1">1</option>
 						<option value="2">2</option>
 						<option value="3">3</option>
@@ -27,5 +28,4 @@
 		</article>
 		</section>
 	</section>
-	<p><button onclick="viewShop()">Find More Supplies</button></p>
 </section>
