@@ -14,7 +14,9 @@ var sql = mysql.createConnection({
 });
 
 var hostname = "192.168.1.2";
-var port = 8080;
+//var hostname = "69.255.66.215";
+//var port = 8080;
+var port = 169;
 
 sql.connect(function(err) {
   if (err) throw err;
