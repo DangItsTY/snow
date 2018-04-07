@@ -12,6 +12,7 @@ import { AddhomeComponent } from './addhome/addhome.component'
 import { CartComponent } from './cart/cart.component'
 import { ShopComponent } from './shop/shop.component'
 import { SearchComponent } from './search/search.component'
+import { RequestsComponent } from './requests/requests.component'
 
 const appRoutes: Routes = [
 	{
@@ -42,6 +43,10 @@ const appRoutes: Routes = [
 		path: 'search',
 		component: SearchComponent
 	},
+		{
+		path: 'requests',
+		component: RequestsComponent
+	},
 	{
 		path: '',
 		redirectTo: '/login',
@@ -70,6 +75,7 @@ const appRoutes: Routes = [
 	CartComponent,
 	ShopComponent,
 	SearchComponent,
+	RequestsComponent,
   ],
   imports: [
     BrowserModule,

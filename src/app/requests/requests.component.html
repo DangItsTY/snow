@@ -1,0 +1,19 @@
+<section id="requests">
+	<h1>Requests For {{userModel.firstname}}</h1>
+	<section id="requestslist">
+		<section *ngFor="let model of models" id="item-container" class="item-container">
+		<article class="item">
+			<img [src]="model.image" class="picture" />
+			<div class="info">
+				<div>
+					<div class="label"><strong>{{model.name}}</strong></div>
+					<div class="description"><small>{{model.description}}</small></div>
+				</div>
+				<div>
+					<p class="price">Price: ${{model.price}}</p>
+				</div>
+			</div>
+		</article>
+		</section>
+	</section>
+</section>

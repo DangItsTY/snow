@@ -14,9 +14,9 @@ var sql = mysql.createConnection({
 });
 
 var hostname = "192.168.1.2";
-//var hostname = "69.255.66.215";
-//var port = 8080;
-var port = 169;
+var port = 8080;
+//var port = 169;
+//ng serve --host 192.168.1.2 --port 168
 
 sql.connect(function(err) {
   if (err) throw err;
@@ -82,23 +82,54 @@ app.post('/addaccount', function(req, res) {
 });
 
 app.post('/subscribe/:id', function(req, res) {
-    var form = new formidable.IncomingForm();
+	var form = new formidable.IncomingForm();
 	form.parse(req, function (err, fields, files) {
-		var query = "UPDATE subscriptions SET amount="+fields.amount+" WHERE subscriber="+req.params.id+" AND subscribed="+fields.id;
+		var query = "SELECT * FROM subscriptions WHERE subscriber="+req.params.id+" AND subscribed="+fields.id;
 		sql.query(query, function (err, result) {
 			console.log(err);
 			console.log(result);
-			if (err) throw err;
-			if(result.affectedRows == 0) {
-				var query = "INSERT INTO subscriptions (subscriber, subscribed, amount) VALUES ("+req.params.id+", "+fields.id+", "+fields.amount+")";
+			if (result.length == 0) {
+				// make new request
+				var query = "INSERT INTO requests (requestor, item, quantity) VALUES ("+req.params.id+", "+fields.id+", "+fields.amount+")";
 				sql.query(query, function (err, result) {
-					if (err) throw err;
-					res.send(result);
-					console.log("1 record inserted");
+					console.log(err);
+					console.log(result);
+					var requestId = result.insertId;
+					// make new subscription
+					var query = "INSERT INTO subscriptions (subscriber, subscribed, request) VALUES ("+req.params.id+", "+fields.id+", "+requestId+")";
+					sql.query(query, function (err, result) {
+						console.log(err);
+						console.log(result);
+						res.send(result);
+					});
 				});
 			} else {
-				console.log(result);
-				res.send(result);
+				var requestId = result[0].request;
+				var subscriptionId = result[0].id;
+				if (requestId == null) {
+					// make new request
+					var query = "INSERT INTO requests (requestor, item, quantity) VALUES ("+req.params.id+", "+fields.id+", "+fields.amount+")";
+					sql.query(query, function (err, result) {
+						console.log(err);
+						console.log(result);
+						var requestId = result.insertId;
+						// update subscription
+						var query = "UPDATE subscriptions SET request="+requestId+" WHERE id="+subscriptionId;
+						sql.query(query, function (err, result) {
+							console.log(err);
+							console.log(result);
+							res.send(result);
+						});
+					});
+				} else {
+					// update existing request
+					var query = "UPDATE requests SET quantity="+fields.amount+" WHERE id="+requestId;
+					sql.query(query, function (err, result) {
+						console.log(err);
+						console.log(result);
+						res.send(result);
+					});
+				}
 			}
 		});
 	});
@@ -142,6 +173,15 @@ app.get('/shopInfo/:id', function(req, res) {
 
 app.get('/shopperInfo/:id', function(req, res) {
 	var query = "SELECT * FROM users WHERE id=" + req.params.id + " LIMIT 1";
+	sql.query(query, function (err, result) {
+		if (err) throw err;
+		console.log("query success");
+		res.send(result);
+	});
+});
+
+app.get('/requests/:id', function(req, res) {
+	var query = "SELECT * FROM subscriptions RIGHT JOIN items ON subscriptions.subscribed = items.id WHERE items.owner=" + req.params.id;
 	sql.query(query, function (err, result) {
 		if (err) throw err;
 		console.log("query success");

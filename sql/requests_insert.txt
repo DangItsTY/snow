@@ -1,0 +1,16 @@
+INSERT INTO `snow`.`requests`
+(
+`requestor`,
+`item`,
+`quantity`,
+`state`,
+`status`
+)
+VALUES
+(
+4,
+1,
+1,
+0,
+'requested'
+);
