@@ -181,7 +181,7 @@ app.get('/shopperInfo/:id', function(req, res) {
 });
 
 app.get('/requests/:id', function(req, res) {
-	var query = "SELECT * FROM subscriptions RIGHT JOIN items ON subscriptions.subscribed = items.id WHERE items.owner=" + req.params.id;
+	var query = "SELECT * FROM subscriptions RIGHT JOIN requests ON subscriptions.request=requests.id RIGHT JOIN items ON subscriptions.subscribed = items.id WHERE items.owner=" + req.params.id + " AND requests.state=0";
 	sql.query(query, function (err, result) {
 		if (err) throw err;
 		console.log("query success");
