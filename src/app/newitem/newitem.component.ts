@@ -44,7 +44,8 @@ export class Item {
 		public image?: any,
 		public price?: string,
 		public amount?: number,
-		public id?: number
+		public id?: number,
+		public status?: string
 	) {  }
 
 }

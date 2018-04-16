@@ -189,4 +189,13 @@ app.get('/requests/:id', function(req, res) {
 	});
 });
 
+app.get('/getAllRequestedItems/:id', function(req, res) {
+	var query = "SELECT * FROM subscriptions RIGHT JOIN requests ON subscriptions.request=requests.id RIGHT JOIN items ON subscriptions.subscribed = items.id WHERE subscriptions.subscriber=" + req.params.id;
+	sql.query(query, function (err, result) {
+		if (err) throw err;
+		console.log("query success");
+		res.send(result);
+	});
+});
+
 app.listen(port, hostname);
