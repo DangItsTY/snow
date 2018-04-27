@@ -181,7 +181,8 @@ app.get('/shopperInfo/:id', function(req, res) {
 });
 
 app.get('/requests/:id', function(req, res) {
-	var query = "SELECT * FROM subscriptions RIGHT JOIN requests ON subscriptions.request=requests.id RIGHT JOIN items ON subscriptions.subscribed = items.id WHERE items.owner=" + req.params.id + " AND requests.state=0";
+	var query = "SELECT *, r.id as rid FROM subscriptions as s RIGHT JOIN requests as r ON s.request=r.id RIGHT JOIN items as i ON s.subscribed = i.id WHERE i.owner=" + req.params.id;
+
 	sql.query(query, function (err, result) {
 		if (err) throw err;
 		console.log("query success");
@@ -195,6 +196,25 @@ app.get('/getAllRequestedItems/:id', function(req, res) {
 		if (err) throw err;
 		console.log("query success");
 		res.send(result);
+	});
+});
+
+app.post('/setBy/:id', function(req, res) {
+    var form = new formidable.IncomingForm();
+	form.parse(req, function (err, fields, files) {
+		var newDate = fields.by;
+		newDate = new Date(newDate);
+		newDate = newDate.toISOString();
+		newDate = newDate.replace('T', ' ');
+		newDate = newDate.split('.');
+		newDate = newDate[0];
+		var query = "UPDATE requests SET `by`='"+newDate+"', `status`='accepted', state=1 WHERE id="+req.params.id;
+		sql.query(query, function (err, result) {
+			if (err) throw err;
+			console.log("1 record inserted");
+			console.log(result);
+			res.send(result);
+		});						
 	});
 });
 

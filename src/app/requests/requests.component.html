@@ -12,6 +12,13 @@
 				<div>
 					<p class="price">Price: ${{model.price}}</p>
 				</div>
+				<div>
+					<label>Delivery Date:</label>
+					<input type="date" [(ngModel)]="model.by" (change)="setBy($event, model)"/>
+				</div>
+				<div>
+					<p name="status">Status: {{model.status}}</p>
+				</div>
 			</div>
 		</article>
 		</section>

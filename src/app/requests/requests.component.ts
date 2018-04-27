@@ -42,9 +42,30 @@ export class RequestsComponent {
 			  console.log(res);
 			  var results = res.json();
 			  this.models = results.map((currentValue, index, array) => {
-				  return new Item(currentValue.name, currentValue.description, 'http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port") + currentValue.image, currentValue.price);
+				  currentValue.image = 'http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+currentValue.image;
+				  if (currentValue.by) {
+					var byDate = new Date(currentValue.by);
+					var byDateString = byDate.toISOString().substring(0, 10);
+					currentValue.by = byDateString;
+				  }
+				  return currentValue;
 			  });
+			  console.log(this.models);
 		  });
+	}
+	
+	setBy(event, model) {
+		var formData = new FormData();
+		for (var key in model) {
+			formData.append(key, model[key]);
+		}
+		console.log(model);
+		this.http
+			.post('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/setBy/'+model.rid , formData)
+			.subscribe(res => {
+				console.log("successfully posted", res);
+				this.getRequests();
+			});
 	}
 }
 export class User {
