@@ -46,6 +46,7 @@ export class Item {
 	status: string;
 	state: number;
 	by: any;
+	rid: number;
 
 	constructor(data) {
 		this.name = data.name;
@@ -57,6 +58,7 @@ export class Item {
 		this.status = data.status;
 		this.state = data.state;
 		this.by = data.by ? new Date(data.by).toISOString().substring(0, 10) : data.by;
+		this.rid = data.rid;
 	}
 
 }

@@ -28,7 +28,9 @@
 				</div>
 				<div *ngIf="model.state == 1">
 					<p name="status">Delivery By: {{model.by}}</p>
+					<button (click)="setReceived($event, model)">Received?</button>
 				</div>
+
 			</div>
 		</article>
 		</section>

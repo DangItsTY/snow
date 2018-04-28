@@ -191,7 +191,7 @@ app.get('/requests/:id', function(req, res) {
 });
 
 app.get('/getAllRequestedItems/:id', function(req, res) {
-	var query = "SELECT * FROM subscriptions RIGHT JOIN requests ON subscriptions.request=requests.id RIGHT JOIN items ON subscriptions.subscribed = items.id WHERE subscriptions.subscriber=" + req.params.id;
+	var query = "SELECT *, r.id as rid FROM subscriptions as s RIGHT JOIN requests as r ON s.request=r.id RIGHT JOIN items as i ON s.subscribed = i.id WHERE s.subscriber=" + req.params.id;
 	sql.query(query, function (err, result) {
 		if (err) throw err;
 		console.log("query success");
@@ -209,6 +209,25 @@ app.post('/setBy/:id', function(req, res) {
 		newDate = newDate.split('.');
 		newDate = newDate[0];
 		var query = "UPDATE requests SET `by`='"+newDate+"', `status`='accepted', state=1 WHERE id="+req.params.id;
+		sql.query(query, function (err, result) {
+			if (err) throw err;
+			console.log("1 record inserted");
+			console.log(result);
+			res.send(result);
+		});						
+	});
+});
+
+app.post('/setReceived/:id', function(req, res) {
+    var form = new formidable.IncomingForm();
+	form.parse(req, function (err, fields, files) {
+		var newDate = new Date();
+		newDate = newDate.toISOString();
+		newDate = newDate.replace('T', ' ');
+		newDate = newDate.split('.');
+		newDate = newDate[0];
+		console.log(newDate);
+		var query = "UPDATE requests SET `received`='"+newDate+"', `status`='received', state=2 WHERE id="+req.params.id;
 		sql.query(query, function (err, result) {
 			if (err) throw err;
 			console.log("1 record inserted");

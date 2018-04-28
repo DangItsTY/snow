@@ -62,4 +62,18 @@ export class CartComponent {
 		  });
 	}
 	
+	setReceived(event, model) {
+		var formData = new FormData();
+		for (var key in model) {
+			formData.append(key, model[key]);
+		}
+		console.log(model);
+		this.http
+			.post('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/setReceived/'+model.rid , formData)
+			.subscribe(res => {
+				console.log("successfully posted", res);
+				this.getAllRequestedItems();
+			});
+	}
+	
 }
