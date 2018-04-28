@@ -28,7 +28,7 @@ export class SearchComponent {
 			  console.log("got all items!");
 			  var results = res.json();
 			  this.models = results.map((currentValue, index, array) => {
-				  return new Item(currentValue.name, currentValue.description, 'http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port") + currentValue.image, currentValue.price, 0, currentValue.id);
+				  return new Item(currentValue);
 			  });
 		  });
 	}

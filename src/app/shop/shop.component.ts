@@ -42,7 +42,7 @@ export class ShopComponent {
 			  console.log(res);
 			  var results = res.json();
 			  this.models = results.map((currentValue, index, array) => {
-				  return new Item(currentValue.name, currentValue.description, 'http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port") + currentValue.image, currentValue.price);
+				  return new Item(currentValue);
 			  });
 		  });
 	}

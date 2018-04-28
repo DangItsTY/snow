@@ -42,13 +42,7 @@ export class RequestsComponent {
 			  console.log(res);
 			  var results = res.json();
 			  this.models = results.map((currentValue, index, array) => {
-				  currentValue.image = 'http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+currentValue.image;
-				  if (currentValue.by) {
-					var byDate = new Date(currentValue.by);
-					var byDateString = byDate.toISOString().substring(0, 10);
-					currentValue.by = byDateString;
-				  }
-				  return currentValue;
+				  return new Item(currentValue);
 			  });
 			  console.log(this.models);
 		  });
