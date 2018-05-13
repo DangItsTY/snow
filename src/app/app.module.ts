@@ -13,6 +13,7 @@ import { CartComponent } from './cart/cart.component'
 import { ShopComponent } from './shop/shop.component'
 import { SearchComponent } from './search/search.component'
 import { RequestsComponent } from './requests/requests.component'
+import { HeaderComponent } from './header/header.component'
 
 const appRoutes: Routes = [
 	{
@@ -76,6 +77,7 @@ const appRoutes: Routes = [
 	ShopComponent,
 	SearchComponent,
 	RequestsComponent,
+	HeaderComponent,
   ],
   imports: [
     BrowserModule,

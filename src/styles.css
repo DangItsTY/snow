@@ -6,7 +6,8 @@
 #login input {
 	margin-top: 21px;
 	padding: 8px;
-	border-radius: none;
+	border-radius: 0px;
+	border: 1px solid gray;
 }
 #login input[type="submit"] {
 	width: 89px;
@@ -126,4 +127,11 @@ footer {
 body {
 	margin: 0px;
 	font-family: Arial, Helvetica, sans-serif ;
+}
+input, textarea {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+}
+input[type=submit] {
+    -webkit-border-radius:0px;
 }

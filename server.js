@@ -14,8 +14,10 @@ var sql = mysql.createConnection({
 });
 
 var hostname = "192.168.1.2";
-var port = 8080;
-//var port = 169;
+//var port = 8080;
+
+//var hostname = "108.31.106.35";
+var port = 169;
 //ng serve --host 192.168.1.2 --port 168
 
 sql.connect(function(err) {
@@ -35,6 +37,8 @@ app.post('/login', function(req, res) {
 	form.parse(req, function (err, fields, files) {
 		var query = "SELECT id, supplier FROM users WHERE username='" + fields.username + "'";
 		sql.query(query, function (err, result) {
+			console.log(err);
+			console.log(result);
 			if (err) throw err;
 			res.send(result);
 		});

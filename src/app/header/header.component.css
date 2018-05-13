@@ -1,0 +1,47 @@
+#header.menu-open{
+	position: fixed;
+	top: 0px;
+	left: 0px;
+    background-color: rgba(200, 200, 200, 0.95);
+    height: 100%;
+    width: 200px;
+	transition: left 0.3s ease 0s;
+}
+#header ul {
+	margin: 0px;
+    padding: 20px;
+}
+#header li {
+	list-style-type: none;
+	margin: 34px 0px;
+    font-size: 1.5em;
+}
+#header li a {
+	text-decoration: none;
+}
+#header .header-close {
+	background: none;
+    border: none;
+    font-size: 2em;
+    padding: 0px;
+    font-weight: bold;
+    color: gray;
+    margin: 8px;
+}
+#header.menu-close {
+	position: fixed;
+	top: 0px;
+	left: -165px;
+    height: 100%;
+    width: 200px;
+}
+#header .header-open {
+	background: none;
+    border: none;
+    font-size: 2em;
+    padding: 0px;
+    font-weight: bold;
+    color: gray;
+    margin: 8px;
+	float: right;
+}

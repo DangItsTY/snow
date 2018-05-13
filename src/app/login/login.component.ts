@@ -29,7 +29,7 @@ export class LoginComponent {
 			  result = result[0];
 			  sessionStorage.setItem("user", result.id);
 			  if (result.supplier) {
-				this.router.navigate(['/shop']);
+				this.router.navigate(['/requests']);
 			  } else {
 				this.router.navigate(['/cart']);
 			  }

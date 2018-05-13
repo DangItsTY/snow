@@ -1,0 +1,12 @@
+<section id="header" class="{{menuIsOpenClass}}" *ngIf="!hidden">
+	<div *ngIf="menuIsOpen">
+		<button class="header-close" (click)="setMenuOpenState(false)">X</button>
+		<ul>
+			<li><a [routerLink]="['/shop']">Inventory</a></li>
+			<li><a [routerLink]="['/requests']">Requests</a></li>
+		</ul>
+	</div>
+	<div *ngIf="!menuIsOpen">
+		<button class="header-open" (click)="setMenuOpenState(true)">></button>
+	</div>
+</section>
