@@ -1,12 +1,14 @@
-<section id="header" class="{{menuIsOpenClass}}" *ngIf="!hidden">
-	<div *ngIf="menuIsOpen">
-		<button class="header-close" (click)="setMenuOpenState(false)">X</button>
-		<ul>
-			<li><a [routerLink]="['/shop']">Inventory</a></li>
-			<li><a [routerLink]="['/requests']">Requests</a></li>
-		</ul>
-	</div>
-	<div *ngIf="!menuIsOpen">
-		<button class="header-open" (click)="setMenuOpenState(true)">></button>
+<section id="header" class="menu-margin" *ngIf="!hidden">
+	<div id="header-content" class="{{menuIsOpenClass}}">
+		<div *ngIf="menuIsOpen">
+			<button class="header-close" (click)="setMenuOpenState(false)">X</button>
+			<ul>
+				<li><a [routerLink]="['/shop']" (click)="setMenuOpenState(false)">Inventory</a></li>
+				<li><a [routerLink]="['/requests']" (click)="setMenuOpenState(false)">Requests</a></li>
+			</ul>
+		</div>
+		<div *ngIf="!menuIsOpen">
+			<button class="header-open" (click)="setMenuOpenState(true)">></button>
+		</div>
 	</div>
 </section>

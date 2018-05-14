@@ -1,7 +1,9 @@
-<a [routerLink]="['/shop']">Back to shop</a>
+<section class="back-navigation">
+	<a [routerLink]="['/shop']">Back to shop</a>
+</section>
 <section id="newitem" class="centered-container">
 	<h1>Item Information</h1>
-	<form (ngSubmit)="onSubmit()" #itemForm="ngForm">
+	<form class="centered-form" (ngSubmit)="onSubmit()" #itemForm="ngForm">
 		<input [(ngModel)]="model.name" type="text" name="name" placeholder="name">
 		<input [(ngModel)]="model.description" type="text" name="description" placeholder="description">
 		<input #fileInput type="file" name="image" capture="camera" (change)="addImageToForm()">

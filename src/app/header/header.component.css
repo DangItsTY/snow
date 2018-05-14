@@ -1,11 +1,5 @@
-#header.menu-open{
-	position: fixed;
-	top: 0px;
-	left: 0px;
-    background-color: rgba(200, 200, 200, 0.95);
-    height: 100%;
-    width: 200px;
-	transition: left 0.3s ease 0s;
+#header.menu-margin {
+	margin-bottom: 55px;
 }
 #header ul {
 	margin: 0px;
@@ -19,6 +13,15 @@
 #header li a {
 	text-decoration: none;
 }
+#header-content.menu-open{
+	position: fixed;
+	top: 0px;
+	left: 0px;
+    background-color: rgba(200, 200, 200, 0.95);
+    height: 100%;
+    width: 200px;
+	transition: left 0.3s ease 0s;
+}
 #header .header-close {
 	background: none;
     border: none;
@@ -28,7 +31,7 @@
     color: gray;
     margin: 8px;
 }
-#header.menu-close {
+#header-content.menu-close {
 	position: fixed;
 	top: 0px;
 	left: -165px;

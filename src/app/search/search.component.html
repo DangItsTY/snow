@@ -1,17 +1,19 @@
-<a [routerLink]="['/cart']">Back to cart</a>
+<section class="back-navigation">
+	<a [routerLink]="['/cart']">Back to cart</a>
+</section>
 <section id="search">
 	<h1>Search For Items</h1>
-	<section id="searchlist">
+	<section class="itemlist">
 		<section *ngFor="let model of models" id="item-container" class="item-container">
 		<article class="item">
 			<img [src]="model.image" class="picture" />
 			<div class="info">
 				<div>
-					<div class="label"><strong>{{model.name}}</strong></div>
-					<div class="description"><small>{{model.description}}</small></div>
-				</div>
+					<div class="item-label"><strong>{{model.name}}</strong></div>
+					<div class="item-description"><small>{{model.description}}</small></div>
+				</div><br>
 				<div>
-					<p class="price">Price: ${{model.price}}</p>
+					<div class="item-price">Price: ${{model.price}}</div>
 				</div>
 				<div>
 					<label>Amount:</label>

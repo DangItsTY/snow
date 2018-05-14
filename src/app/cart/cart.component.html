@@ -1,16 +1,16 @@
 <section id="cart">
 	<h1>Orders For {{userModel.firstname}}</h1>
-	<section id="cartlist">
+	<section class="itemlist">
 		<section *ngFor="let model of models" id="item-container" class="item-container">
 		<article class="item">
 			<img [src]="model.image" class="picture" />
 			<div class="info">
 				<div>
-					<div class="label"><strong>{{model.name}}</strong></div>
-					<div class="description"><small>{{model.description}}</small></div>
-				</div>
+					<div class="item-label"><strong>{{model.name}}</strong></div>
+					<div class="item-description"><small>{{model.description}}</small></div>
+				</div><br>
 				<div>
-					<p class="price">Price: ${{model.price}}</p>
+					<div class="item-price">Price: ${{model.price}}</div>
 				</div>
 				<div>
 					<label>Amount:</label>
@@ -22,18 +22,17 @@
 						<option value="4">4</option>
 						<option value="5">5</option>
 					</select>
-				</div>
+				</div><br>
 				<div>
-					<p name="status">Status: {{model.status}}</p>
+					<div name="status">Status: {{model.status}}</div>
 				</div>
 				<div *ngIf="model.state == 1">
-					<p name="status">Delivery By: {{model.by}}</p>
+					<div name="status">Delivery By: {{model.by}}</div>
 					<button (click)="setReceived($event, model)">Received?</button>
 				</div>
-
 			</div>
 		</article>
 		</section>
 	</section>
-	<a [routerLink]="['/search']"><button>Find More Supplies</button></a>
+	<a [routerLink]="['/search']"><button class="search-button">Find More Supplies</button></a>
 </section>

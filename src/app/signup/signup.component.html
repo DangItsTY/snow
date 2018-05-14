@@ -1,3 +1,6 @@
+<section class="back-navigation">
+	<a [routerLink]="['/login']">Back to login</a>
+</section>
 <section id="loginsignup">
 <section id="signup" class="centered-container">
 <form class="centered-content" (ngSubmit)="onSubmit()" #signupForm="ngForm">
@@ -10,8 +13,8 @@
 	<input [(ngModel)]="model.username" type="text" name="username" placeholder="username" required><br>
 	<input [(ngModel)]="model.password" type="password" name="password" placeholder="password" required><br>
 	<input type="password" name="passwordconfirm" placeholder="confirm password" required><br>
-	<label>Are you a supplier? <input [(ngModel)]="model.supplier" type="checkbox" name="supplier"><br></label>
-	<button type="submit" [disabled]="!signupForm.form.valid">Sign Up</button>
+	<label>Are you a supplier?</label><input [(ngModel)]="model.supplier" type="checkbox" name="supplier"><br>
+	<input type="submit" [disabled]="!signupForm.form.valid" value="SIGNUP">
 </form>
 </section>
 </section>

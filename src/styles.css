@@ -1,73 +1,62 @@
 /* You can add global styles to this file, and also import other style files */
-#login {
-	text-align: center;
-	width: 100%;
+body {
+	margin: 0px;
+	font-family: Arial, Helvetica, sans-serif ;
 }
-#login input {
+footer {
+	margin-top: 55px;
+}
+input {
 	margin-top: 21px;
 	padding: 8px;
 	border-radius: 0px;
 	border: 1px solid gray;
 }
-#login input[type="submit"] {
-	width: 89px;
+input[type=submit] {
+	width: 100%;
 	height: 55px;
+	background-color: gray;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 5px;
+	text-transform: uppercase;
 }
-#login button {
-	margin-top: 21px;
-	padding: 8px;
+input[type=checkbox] {
+	width: 21px;
+	height: 21px;
 }
-#signup {
-	text-align: center;
-	width: 100%;
+input[type=date] {
+	margin-top: 0px;
+	padding: 0px;
+	border-radius: 0px;
+	border: 1px solid gray;
 }
-#signup input {
-	margin-top: 13px;
-	padding: 8px;
+input[type=text], textarea {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
 }
-#signup button {
-	margin-top: 13px;
-	padding: 8px;
+input[type=submit] {
+    -webkit-border-radius:0px;
 }
-#cart {
-	text-align: center;
-}
-#cart select {
+select {
 	padding: 5px;
 }
-#cart button {
-	padding: 8px;
+button {
+    border-radius: 0px;
+    color: gray;
+    background-color: white;
+    border: 3px solid gray;
+    font-size: 1em;
+    padding: 13px;
+    font-weight: bold;
+    text-transform: capitalize;
 }
-#shop {
+h1 {
 	text-align: center;
 }
-#shop select {
-	padding: 5px;
-}
-#shop button {
-	padding: 8px;
-}
-#store {
-	text-align: center;
-	width: 100%;
-}
-#store input {
-	margin-top: 13px;
-	padding: 8px;
-}
-#store button {
-	margin-top: 13px;
-	padding: 8px;
-}
-#search {
-	text-align: center;
-}
-#search select {
-	padding: 5px;
-}
-#search button {
-	padding: 8px;
-}
+
+
 .centered-container {
 	display: flex;
 	flex-direction: column;
@@ -78,6 +67,15 @@
 .centered-content {
 }
 
+.centered-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.itemlist {
+	margin-bottom: 21px;
+}
 .item-container {
 }
 .item {
@@ -92,10 +90,22 @@
 }
 .info {
 	flex: 1 1 auto;
+	margin: 5px;
+	text-align: center;
 }
-footer {
-	margin-top: 55px;
+.item-label {
+	text-transform: capitalize;
 }
+.item-description {
+}
+.item-price {
+}
+
+.back-navigation {
+	margin: 8px;
+	margin-top: 13px;
+}
+
 .howtoapp {
 	margin: 8px;
 }
@@ -105,33 +115,4 @@ footer {
 .howtoapp img {
 	width: 100%;
     margin: 21px 0px;
-}
-
-/*
-.item-container {
-	width: 100%;
-	display: flex;
-	flex-wrap: wrap;
-}
-.item {
-	flex: 0 0 50%;
-}
-.picture {
-	text-align: center;
-}
-.label {
-	text-align: center;
-}
-*/
-
-body {
-	margin: 0px;
-	font-family: Arial, Helvetica, sans-serif ;
-}
-input, textarea {
-  -webkit-appearance: none;
-  -webkit-border-radius: 0;
-}
-input[type=submit] {
-    -webkit-border-radius:0px;
 }

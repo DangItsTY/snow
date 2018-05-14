@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core'
-import {Router, ActivatedRoute} from '@angular/router'
+import {Router, NavigationStart} from '@angular/router'
 
 @Component({
 	selector: 'headercomponent',
@@ -11,35 +11,15 @@ export class HeaderComponent {
 	menuIsOpen: boolean;
 	menuIsOpenClass: string;
 	
-	constructor(private router: Router, private route: ActivatedRoute) {
+	constructor(private router: Router) {
 	}
   
 	ngOnInit() {
-		//this.hidden = true;
+		this.hidden = true;
 		this.menuIsOpen = false;
 		this.setMenuOpenClass();
-		console.log(this.router);
-		console.log(this.route);
-		/*
-		this.route.url.subscribe((change) => {
-			console.log(change);
-		});
-		this.route.params.subscribe((change) => {
-			console.log(change);
-		});
-		this.route.queryParams.subscribe((change) => {
-			console.log(change);
-		});
-		this.route.fragment.subscribe((change) => {
-			console.log(change);
-		});
-		this.route.data.subscribe((change) => {
-			console.log(change);
-		});
-		*/
-		this.router.events.subscribe((change) => {
-			console.log(change);
-		});
+
+		this.router.events.subscribe((change) => this.setHiddenState(change));
 	}
 	
 	setMenuOpenState(open: boolean) {
@@ -49,5 +29,16 @@ export class HeaderComponent {
 	
 	setMenuOpenClass() {
 		this.menuIsOpenClass = this.menuIsOpen ? "menu-open" : "menu-close";
+	}
+	
+	setHiddenState(change) {
+		if (change instanceof NavigationStart) {
+			if (change.url == "/shop" ||
+				change.url == "/requests") {
+				this.hidden = false;
+			} else {
+				this.hidden = true;
+			}
+		}
 	}
 }
