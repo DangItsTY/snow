@@ -24,27 +24,33 @@ export class ShopComponent {
 	getShopInfo() {
 		console.log("getting shop information...");
 		this.http
-		  .get('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/shopInfo/' + this.userId)
-		  .subscribe(res => {
-			  console.log("got shop info", res);
-			  var results = res.json();
-			  var result = results[0];
-			  this.userModel = new User(result.firstname, result.storename);
-		  });
+		.get('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/shopInfo/' + this.userId)
+		.subscribe(res => {
+			console.log("got shop info", res);
+			var results = res.json();
+			var result = results[0];
+			if (result == undefined) { alert("Oops! Something went wrong."); }
+			else {
+				this.userModel = new User(result.firstname, result.storename);
+			}
+		});
 	}
 	
 	getAllShopItems() {
 		console.log("getting all shop items...");
 		this.http
-		  .get('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/allShopItems/' + this.userId)
-		  .subscribe(res => {
-			  console.log("got all items!");
-			  console.log(res);
-			  var results = res.json();
-			  this.models = results.map((currentValue, index, array) => {
+		.get('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/allShopItems/' + this.userId)
+		.subscribe(res => {
+			console.log("got all items!");
+			console.log(res);
+			var results = res.json();
+			if (results.length == 0) { alert("Oops! Something went wrong."); }
+			else {
+				this.models = results.map((currentValue, index, array) => {
 				  return new Item(currentValue);
-			  });
-		  });
+				});
+			}
+		});
 	}
 }
 export class User {

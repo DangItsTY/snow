@@ -24,28 +24,34 @@ export class RequestsComponent {
 	getShopInfo() {
 		console.log("getting shop information...");
 		this.http
-		  .get('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/shopInfo/' + this.userId)
-		  .subscribe(res => {
-			  console.log("got shop info", res);
-			  var results = res.json();
-			  var result = results[0];
-			  this.userModel = new User(result.firstname, result.storename);
-		  });
+		.get('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/shopInfo/' + this.userId)
+		.subscribe(res => {
+			console.log("got shop info", res);
+			var results = res.json();
+			var result = results[0];
+			if (result == undefined) { alert("Oops! Something went wrong."); }
+			else {
+				this.userModel = new User(result.firstname, result.storename);
+			}
+		});
 	}
 	
 	getRequests() {
 		console.log("getting all requests...");
 		this.http
-		  .get('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/requests/' + this.userId)
-		  .subscribe(res => {
-			  console.log("got all requests!");
-			  console.log(res);
-			  var results = res.json();
-			  this.models = results.map((currentValue, index, array) => {
-				  return new Item(currentValue);
-			  });
-			  console.log(this.models);
-		  });
+		.get('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/requests/' + this.userId)
+		.subscribe(res => {
+			console.log("got all requests!");
+			console.log(res);
+			var results = res.json();
+			if (results.length == 0) { alert("Oops! Something went wrong."); }
+			else {
+				this.models = results.map((currentValue, index, array) => {
+					return new Item(currentValue);
+				});
+				console.log(this.models);
+			}
+		});
 	}
 	
 	setBy(event, model) {

@@ -17,23 +17,25 @@ export class LoginComponent {
 	}
 	
 	onSubmit() {
-		console.log("logging in");
 		var formData = new FormData();
 		for (var key in this.model) {
 			formData.append(key, this.model[key]);
 		}
 		this.http
-		  .post('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/login' , formData)
-		  .subscribe(res => {
-			  var result = res.json();
-			  result = result[0];
-			  sessionStorage.setItem("user", result.id);
-			  if (result.supplier) {
-				this.router.navigate(['/requests']);
-			  } else {
-				this.router.navigate(['/cart']);
-			  }
-		  });
+		.post('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/login' , formData)
+		.subscribe(res => {
+			var result = res.json();
+			result = result[0];
+			if (result == undefined) { alert("Oops! Something went wrong."); }
+			else {
+				sessionStorage.setItem("user", result.id);
+				if (result.supplier) {
+					this.router.navigate(['/requests']);
+				} else {
+					this.router.navigate(['/cart']);
+				}
+			}
+		});
 	}
 }
 export class Account {

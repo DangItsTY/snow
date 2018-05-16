@@ -34,8 +34,8 @@ export class AppComponent {
 		//sessionStorage.setItem("hostname", "192.168.1.2");
 		//sessionStorage.setItem("hostname", "69.255.66.215");
 		//sessionStorage.setItem("port", "8080");
-		
-		sessionStorage.setItem("hostname", "108.31.106.35");
+		//sessionStorage.setItem("hostname", "108.31.106.35");
+		sessionStorage.setItem("hostname", "96.231.60.21");
 		sessionStorage.setItem("port", "169");
 	}
 

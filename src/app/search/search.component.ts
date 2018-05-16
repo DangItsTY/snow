@@ -23,14 +23,17 @@ export class SearchComponent {
 	getAllItems() {
 		console.log("getting all items...");
 		this.http
-		  .get('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/allItems')
-		  .subscribe(res => {
-			  console.log("got all items!");
-			  var results = res.json();
-			  this.models = results.map((currentValue, index, array) => {
-				  return new Item(currentValue);
-			  });
-		  });
+		.get('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/allItems')
+		.subscribe(res => {
+			console.log("got all items!");
+			var results = res.json();
+			if (results.length == 0) { alert("Oops! Something went wrong."); }
+			else {
+				this.models = results.map((currentValue, index, array) => {
+					return new Item(currentValue);
+				});
+			}
+		});
 	}
 	
 	updateAmount(event, model) {
@@ -39,9 +42,9 @@ export class SearchComponent {
 			formData.append(key, model[key]);
 		}
 		this.http
-		  .post('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/subscribe/'+this.userId , formData)
-		  .subscribe(res => {
-			  console.log("subscribed!");
-		  });
+		.post('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/subscribe/'+this.userId , formData)
+		.subscribe(res => {
+			console.log("subscribed!");
+		});
 	}
 }
