@@ -57,6 +57,9 @@ app.post('/fileupload/:id', function(req, res) {
 			res.write('File uploaded and moved!');
 			res.end();
 		});
+		for (var key in fields) {
+			fields[key] = fields[key].replace("'", "''");
+		}
 		var query = "INSERT INTO items (name, description, price, owner, image) VALUES ('"+fields.name+"', '"+fields.description+"', '"+fields.price+"', "+req.params.id+", '/images/"+file.name+"')";
 		sql.query(query, function (err, result) {
 			if (err) throw err;
@@ -69,14 +72,9 @@ app.post('/addaccount', function(req, res) {
     var form = new formidable.IncomingForm();
 	form.parse(req, function (err, fields, files) {		
 		console.log(fields);
-		/*
-		if (fields.supplier == 'true') {
-			fields.supplier = true;
-		} else {
-			fields.supplier = false;
+		for (var key in fields) {
+			fields[key] = fields[key].replace("'", "''");
 		}
-		console.log(fields.supplier);
-		*/
 		var query = "INSERT INTO users (firstname, lastname, email, phone, storename, storeaddress, username, password, supplier) VALUES ('"+fields.firstname+"', '"+fields.lastname+"', '"+fields.email+"', '"+fields.phone+"', '"+fields.storename+"', '"+fields.storeaddress+"', '"+fields.username+"', '"+fields.password+"', "+fields.supplier+")";
 		sql.query(query, function (err, result) {
 			if (err) throw err;

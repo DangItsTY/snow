@@ -46,13 +46,10 @@ export class CartComponent {
 				console.log("got all items!");
 				console.log(res);
 				var results = res.json();
-				if (results.length == 0) { alert("Oops! Something went wrong."); }
-				else {
-					this.models = results.map((currentValue, index, array) => {
-						return new Item(currentValue);
-					});
-					console.log(this.models);
-				}
+				this.models = results.map((currentValue, index, array) => {
+					return new Item(currentValue);
+				});
+				console.log(this.models);
 			});
 	}
 	

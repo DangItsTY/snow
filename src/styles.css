@@ -1,7 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 body {
 	margin: 0px;
-	font-family: Arial, Helvetica, sans-serif ;
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: lemonchiffon;
 }
 footer {
 	margin-top: 55px;
@@ -82,6 +83,7 @@ h1 {
 	display: flex;
 	margin: 8px;
 	box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.4);
+	background-color: white;
 }
 .picture {
 	flex: 0 0 150px;
