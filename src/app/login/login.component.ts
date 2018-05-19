@@ -29,11 +29,14 @@ export class LoginComponent {
 			if (result == undefined) { alert("Oops! Something went wrong."); }
 			else {
 				sessionStorage.setItem("user", result.id);
+				this.router.navigate(['/cart']);
+				/*
 				if (result.supplier) {
 					this.router.navigate(['/requests']);
 				} else {
 					this.router.navigate(['/cart']);
 				}
+				*/
 			}
 		});
 	}

@@ -33,11 +33,11 @@ export class HeaderComponent {
 	
 	setHiddenState(change) {
 		if (change instanceof NavigationStart) {
-			if (change.url == "/shop" ||
-				change.url == "/requests") {
-				this.hidden = false;
-			} else {
+			if (change.url == "/login" ||
+				change.url == "/signup") {
 				this.hidden = true;
+			} else {
+				this.hidden = false;
 			}
 		}
 	}

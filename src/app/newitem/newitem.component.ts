@@ -41,12 +41,13 @@ export class NewitemComponent {
 	}
 	
 	barcodeReader() {
+		var tempSrc = URL.createObjectURL(this.fileInput.nativeElement.files[0]);
 		Quagga.decodeSingle({
 			decoder: {
 				readers: ["code_128_reader"]
 			},
 			locate: true,
-			src: URL.createObjectURL(this.fileInput.nativeElement.files[0])
+			src: tempSrc
 		}, (result) => {
 			if(result) {
 				console.log("result", result);
@@ -55,6 +56,7 @@ export class NewitemComponent {
 				console.log("not detected");
 				this.barcode = null;
 			}
+			URL.revokeObjectURL(tempSrc);
 		});
 	}
 }

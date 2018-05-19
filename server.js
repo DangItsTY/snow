@@ -53,7 +53,9 @@ app.post('/fileupload/:id', function(req, res) {
 		var oldpath = file.path;
 		var newpath = __dirname + '/images/' + file.name;
 		fs.rename(oldpath, newpath, function (err) {
-			if (err) throw err;
+			if (err) {
+				console.log(err);
+			}
 			res.write('File uploaded and moved!');
 			res.end();
 		});
@@ -148,6 +150,7 @@ app.get('/allShopItems/:id', function(req, res) {
 	});
 });
 
+/*
 app.get('/allSubscribedItems/:id', function(req, res) {
 	var query = "SELECT * FROM subscriptions RIGHT JOIN items ON subscriptions.subscribed = items.id WHERE subscriptions.subscriber=" + req.params.id;
 	sql.query(query, function (err, result) {
@@ -156,6 +159,7 @@ app.get('/allSubscribedItems/:id', function(req, res) {
 		res.send(result);
 	});
 });
+*/
 
 app.get('/allItems', function(req, res) {
 	var query = "SELECT * FROM items";
@@ -185,7 +189,7 @@ app.get('/shopperInfo/:id', function(req, res) {
 });
 
 app.get('/requests/:id', function(req, res) {
-	var query = "SELECT *, r.id as rid FROM subscriptions as s RIGHT JOIN requests as r ON s.request=r.id RIGHT JOIN items as i ON s.subscribed = i.id WHERE i.owner=" + req.params.id;
+	var query = "SELECT *, r.id as rid FROM subscriptions as s LEFT JOIN requests as r ON s.request=r.id LEFT JOIN items as i ON s.subscribed = i.id WHERE i.owner=" + req.params.id;
 
 	sql.query(query, function (err, result) {
 		if (err) throw err;
@@ -195,7 +199,7 @@ app.get('/requests/:id', function(req, res) {
 });
 
 app.get('/getAllRequestedItems/:id', function(req, res) {
-	var query = "SELECT *, r.id as rid FROM subscriptions as s RIGHT JOIN requests as r ON s.request=r.id RIGHT JOIN items as i ON s.subscribed = i.id WHERE s.subscriber=" + req.params.id;
+	var query = "SELECT *, r.id as rid FROM subscriptions as s LEFT JOIN requests as r ON s.request=r.id LEFT JOIN items as i ON s.subscribed = i.id WHERE s.subscriber=" + req.params.id;
 	sql.query(query, function (err, result) {
 		if (err) throw err;
 		console.log("query success");

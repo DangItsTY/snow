@@ -3,8 +3,11 @@
 		<div *ngIf="menuIsOpen">
 			<button class="header-close" (click)="setMenuOpenState(false)">X</button>
 			<ul>
+				<li><a [routerLink]="['/cart']" (click)="setMenuOpenState(false)">Orders</a></li>
+				<li><a [routerLink]="['/search']" (click)="setMenuOpenState(false)">Shop</a></li>
 				<li><a [routerLink]="['/shop']" (click)="setMenuOpenState(false)">Inventory</a></li>
-				<li><a [routerLink]="['/requests']" (click)="setMenuOpenState(false)">Requests</a></li>
+				<li><a [routerLink]="['/requests']" (click)="setMenuOpenState(false)">Requests</a></li><br>
+				<li><a [routerLink]="['/login']" (click)="setMenuOpenState(false)">Logout</a></li>
 			</ul>
 		</div>
 		<div *ngIf="!menuIsOpen">
