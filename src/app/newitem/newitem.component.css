@@ -1,3 +1,6 @@
 #newitem form input {
 	width: 100%;
 }
+#newitem .barcode {
+	margin-top: 5px;
+}

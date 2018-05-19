@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core'
 import {Http} from '@angular/http'
 import {Router} from '@angular/router'
-
+declare var Quagga: any;
 @Component({
 	selector: 'newitem',
 	templateUrl: './newitem.component.html',
@@ -11,8 +11,10 @@ export class NewitemComponent {
 	@ViewChild('fileInput') fileInput
 	model;
 	userId;
+	barcode;
 	
 	constructor(private http: Http, private router: Router) {
+		this.barcode = null;
 	}
   
 	ngOnInit() {
@@ -35,6 +37,25 @@ export class NewitemComponent {
 	addImageToForm() {
 		this.model.image = this.fileInput.nativeElement.files[0];
 		console.log(this.model);
+		this.barcodeReader();
+	}
+	
+	barcodeReader() {
+		Quagga.decodeSingle({
+			decoder: {
+				readers: ["code_128_reader"]
+			},
+			locate: true,
+			src: URL.createObjectURL(this.fileInput.nativeElement.files[0])
+		}, (result) => {
+			if(result) {
+				console.log("result", result);
+				this.barcode = result.codeResult.code;
+			} else {
+				console.log("not detected");
+				this.barcode = null;
+			}
+		});
 	}
 }
 export class Item {
