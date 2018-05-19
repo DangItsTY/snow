@@ -91,9 +91,10 @@ app.post('/subscribe/:id', function(req, res) {
 		sql.query(query, function (err, result) {
 			console.log(err);
 			console.log(result);
+			console.log(fields);
 			if (result.length == 0) {
 				// make new request
-				var query = "INSERT INTO requests (requestor, item, quantity) VALUES ("+req.params.id+", "+fields.id+", "+fields.amount+")";
+				var query = "INSERT INTO requests (requestor, item, quantity) VALUES ("+req.params.id+", "+fields.id+", "+fields.quantity+")";
 				sql.query(query, function (err, result) {
 					console.log(err);
 					console.log(result);
@@ -111,7 +112,7 @@ app.post('/subscribe/:id', function(req, res) {
 				var subscriptionId = result[0].id;
 				if (requestId == null) {
 					// make new request
-					var query = "INSERT INTO requests (requestor, item, quantity) VALUES ("+req.params.id+", "+fields.id+", "+fields.amount+")";
+					var query = "INSERT INTO requests (requestor, item, quantity) VALUES ("+req.params.id+", "+fields.id+", "+fields.quantity+")";
 					sql.query(query, function (err, result) {
 						console.log(err);
 						console.log(result);
@@ -126,7 +127,7 @@ app.post('/subscribe/:id', function(req, res) {
 					});
 				} else {
 					// update existing request
-					var query = "UPDATE requests SET quantity="+fields.amount+" WHERE id="+requestId;
+					var query = "UPDATE requests SET quantity="+fields.quantity+" WHERE id="+requestId;
 					sql.query(query, function (err, result) {
 						console.log(err);
 						console.log(result);
