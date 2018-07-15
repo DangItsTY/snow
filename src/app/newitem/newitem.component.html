@@ -6,6 +6,7 @@
 	<form class="centered-form" (ngSubmit)="onSubmit()" #itemForm="ngForm">
 		<input [(ngModel)]="model.name" type="text" name="name" placeholder="name">
 		<input [(ngModel)]="model.description" type="text" name="description" placeholder="description">
+		<input [(ngModel)]="model.category" type="text" name="category" placeholder="category">
 		<input #fileInput type="file" name="image" capture="camera" (change)="addImageToForm()">
 		<div class="barcode" *ngIf="barcode">Barcode: {{barcode}}</div>
 		<input [(ngModel)]="model.price" type="number" name="price" placeholder="price">

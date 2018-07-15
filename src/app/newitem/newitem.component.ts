@@ -19,7 +19,7 @@ export class NewitemComponent {
   
 	ngOnInit() {
 		this.userId = sessionStorage.getItem("user");
-		this.model = new Item({"name": null, "description": null, "image": null, "price": null});
+		this.model = new Item({"name": null, "description": null, "category": null, "image": null, "price": null});
 	}
 	
 	onSubmit() {
@@ -63,6 +63,7 @@ export class NewitemComponent {
 export class Item {
 	name: string;
 	description: string;
+	category: string;
 	image: string;
 	price: string;
 	quantity: number;
@@ -79,6 +80,7 @@ export class Item {
 	constructor(data) {
 		this.name = data.name;
 		this.description = data.description;
+		this.category = data.category;
 		this.image = 'http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port") + data.image;
 		this.price = data.price;
 		this.quantity = data.quantity;

@@ -69,7 +69,7 @@ app.post('/fileupload/:id', function(req, res) {
 		for (var key in fields) {
 			fields[key] = fields[key].replace("'", "''");
 		}
-		var query = "INSERT INTO items (name, description, price, owner, image) VALUES ('"+fields.name+"', '"+fields.description+"', '"+fields.price+"', "+req.params.id+", '/images/"+file.name+"')";
+		var query = "INSERT INTO items (name, description, category, price, owner, image) VALUES ('"+fields.name+"', '"+fields.description+"', '"+fields.category+"', '"+fields.price+"', "+req.params.id+", '/images/"+file.name+"')";
 		sql.query(query, function (err, result) {
 			if (err) throw err;
 			console.log("1 record inserted");
@@ -149,7 +149,8 @@ app.post('/subscribe/:id', function(req, res) {
 });
 
 app.get('/allShopItems/:id', function(req, res) {
-	var query = "SELECT * FROM items WHERE owner=" + req.params.id;
+	var query = "SELECT * FROM items WHERE owner=" + req.params.id + " ORDER BY category";
+
 	sql.query(query, function (err, result) {
 		if (err) throw err;
 		console.log("query success");

@@ -1,19 +1,22 @@
 <section id="shop">
 	<h1><u>{{userModel.storename}}</u></h1>
 	<section class="itemlist">
-		<section *ngFor="let model of models" id="item-container" class="item-container">
-		<article class="item">
-			<img [src]="model.image" class="picture" />
-			<div class="info">
-				<div>
-					<div class="item-label"><strong>{{model.name}}</strong></div>
-					<div class="item-description"><small>{{model.description}}</small></div>
-				</div><br>
-				<div>
-					<p class="item-price">Price: ${{model.price}}</p>
-				</div>
-			</div>
-		</article>
+		<section *ngFor="let category of models" class="item-section-container">
+			<h2>{{category[0].category}}</h2>
+			<section *ngFor="let item of category" id="item-container" class="item-container">
+				<article class="item">
+					<img [src]="item.image" class="picture" />
+					<div class="info">
+						<div>
+							<div class="item-label"><strong>{{item.name}}</strong></div>
+							<div class="item-description"><small>{{item.description}}</small></div>
+						</div><br>
+						<div>
+							<div class="item-price">Price: ${{item.price}}</div>
+						</div>
+					</div>
+				</article>
+			</section>
 		</section>
 	</section>
 	<a [routerLink]="['/newitem']"><button>Add Item</button></a>

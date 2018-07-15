@@ -40,12 +40,41 @@ export class ShopComponent {
 		console.log("getting all shop items...");
 		this.http
 		.get('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/allShopItems/' + this.userId)
-		.subscribe(res => {
+		.subscribe(res => {			
 			console.log("got all items!");
-			console.log(res);
 			var results = res.json();
-			this.models = results.map((currentValue, index, array) => {
-			  return new Item(currentValue);
+			results = results.map((currentValue, index, array) => {
+				return new Item(currentValue);
+			});
+			
+			var keys = results.map((value, index, array) => {
+				if (value.category == null) {
+					return "other";
+				} else {
+					return value.category;
+				}
+			});
+			keys = keys.filter((value, index, array) => {
+				return array.indexOf(value) === index;
+			});
+			
+			this.models = [];
+			for (var i = 0; i < results.length; i++) {
+				var category = results[i].category;
+				if (category == null) {
+					category = "other";
+				}
+				category = keys.indexOf(category);
+				
+				if (this.models[category]) {
+					this.models[category].push(results[i]);
+				} else {
+					this.models[category] = [results[i]];
+				}
+			}
+			this.models = this.models.filter(function(value, index, array) {
+				console.log(value);
+				return true;
 			});
 		});
 	}
