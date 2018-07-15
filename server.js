@@ -206,7 +206,7 @@ app.get('/shopperInfo/:id', function(req, res) {
 });
 
 app.get('/requests/:id', function(req, res) {
-	var query = "SELECT *, r.id as rid FROM subscriptions as s LEFT JOIN requests as r ON s.request=r.id LEFT JOIN items as i ON s.subscribed = i.id WHERE i.owner=" + req.params.id;
+	var query = "SELECT *, r.id as rid FROM subscriptions as s LEFT JOIN requests as r ON s.request=r.id LEFT JOIN users as u ON r.requestor=u.id LEFT JOIN items as i ON s.subscribed = i.id WHERE i.owner=" + req.params.id + " ORDER BY r.requestor";
 
 	sql.query(query, function (err, result) {
 		if (err) throw err;

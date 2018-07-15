@@ -42,12 +42,23 @@ export class RequestsComponent {
 		.get('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/requests/' + this.userId)
 		.subscribe(res => {
 			console.log("got all requests!");
-			console.log(res);
 			var results = res.json();
-			this.models = results.map((currentValue, index, array) => {
+			results = results.map((currentValue, index, array) => {
 				return new Item(currentValue);
 			});
-			console.log(this.models);
+			
+			this.models = [];
+			for (var i = 0; i < results.length; i++) {
+				var requestor = results[i].requestor;
+				if (this.models[requestor]) {
+					this.models[requestor].push(results[i]);
+				} else {
+					this.models[requestor] = [results[i]];
+				}
+			}
+			this.models = this.models.filter(function(value, index, array) {
+				return true;
+			});
 		});
 	}
 	

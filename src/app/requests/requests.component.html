@@ -1,22 +1,25 @@
 <section id="requests">
 	<h1>Requests For {{userModel.firstname}}</h1>
-	<section class="itemlist">
-		<section *ngFor="let model of models" id="item-container" class="item-container">
-		<article class="item">
-			<img [src]="model.image" class="picture" />
-			<div class="info">
-				<div>
-					<div class="item-label"><strong>{{model.name}}</strong></div>
-				</div><br>
-				<div>
-					<label>Deliver:</label>
-					<input type="date" [(ngModel)]="model.by" (change)="setBy($event, model)"/>
-				</div><br>
-				<div>
-					<div name="status">Status: {{model.status}}</div>
-				</div>
-			</div>
-		</article>
+	<section class="itemlist">	
+		<section *ngFor="let store of models" class="item-section-container">
+			<h2>{{store[0].username}}</h2>
+			<section *ngFor="let item of store" id="item-container" class="item-container">
+				<article class="item">
+					<img [src]="item.image" class="picture" />
+					<div class="info">
+						<div>
+							<div class="item-label"><strong>{{item.name}}</strong></div>
+						</div><br>
+						<div>
+							<label>Deliver:</label>
+							<input type="date" [(ngModel)]="item.by" (change)="setBy($event, item)"/>
+						</div><br>
+						<div>
+							<div name="status">Status: {{item.status}}</div>
+						</div>
+					</div>
+				</article>
+			</section>
 		</section>
-	</section>
+	</section>		
 </section>

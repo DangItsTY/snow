@@ -73,6 +73,8 @@ export class Item {
 	rid: number;
 	storename: string;
 	owner: number;
+	requestor: number;
+	username: string;
 
 	constructor(data) {
 		this.name = data.name;
@@ -87,6 +89,8 @@ export class Item {
 		this.rid = data.rid;
 		this.storename = data.storename;
 		this.owner = data.owner;
+		this.requestor = data.requestor;
+		this.username = data.username;
 	}
 
 }
