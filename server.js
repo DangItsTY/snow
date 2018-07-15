@@ -13,12 +13,19 @@ var sql = mysql.createConnection({
   database: "snow"
 });
 
-var hostname = "192.168.1.2";
+var hostname = "localhost";
+var port = 3000;
+
+//	for default local setup
+//var hostname = "localhost";
+///var port = 3000;
+
+//var hostname = "192.168.1.2";
 //var port = 8080;
 
 //var hostname = "96.231.60.21";
 //var hostname = "108.31.106.35";
-var port = 169;
+//var port = 169;
 //ng serve --host 192.168.1.2 --port 168
 
 sql.connect(function(err) {

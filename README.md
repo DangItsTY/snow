@@ -1,3 +1,11 @@
+# How to run
+In one cmd, type "node server.js" to run the server. This server is also the api server, and it connects to the mysql database.
+In another cmd, type "ng serve" to serve the web application.
+Note: The web application calls on the server for information. If you just ran the web application, you'll notice missing information if you went to the URL.
+
+# To run locally
+By default, the api server configs are local. host is "localhost" and port is 3000. Ensure this is in server.js as well as the session storage in app.component.ts
+
 # Snow
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.4.
