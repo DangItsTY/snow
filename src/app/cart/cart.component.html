@@ -1,37 +1,40 @@
 <section id="cart">
 	<h1>Orders For {{userModel.firstname}}</h1>
 	<section class="itemlist">
-		<section *ngFor="let model of models" id="item-container" class="item-container">
-		<article class="item">
-			<img [src]="model.image" class="picture" />
-			<div class="info">
-				<div>
-					<div class="item-label"><strong>{{model.name}}</strong></div>
-					<div class="item-description"><small>{{model.description}}</small></div>
-				</div><br>
-				<div>
-					<div class="item-price">Price: ${{model.price}}</div>
-				</div>
-				<div>
-					<label>Amount:</label>
-					<select [(ngModel)]="model.quantity" (change)="updateAmount($event, model)">
-						<option value="0">0</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-					</select>
-				</div><br>
-				<div>
-					<div name="status">Status: {{model.status}}</div>
-				</div>
-				<div *ngIf="model.state == 1">
-					<div name="status">Delivery By: {{model.by}}</div>
-					<button (click)="setReceived($event, model)" class="received-button">Received?</button>
-				</div>
-			</div>
-		</article>
+		<section *ngFor="let store of models" class="item-section-container">
+			<h2>{{store[0].storename}}</h2>
+			<section *ngFor="let item of store" id="item-container" class="item-container">
+				<article class="item">
+					<img [src]="item.image" class="picture" />
+					<div class="info">
+						<div>
+							<div class="item-label"><strong>{{item.name}}</strong></div>
+							<div class="item-description"><small>{{item.description}}</small></div>
+						</div><br>
+						<div>
+							<div class="item-price">Price: ${{item.price}}</div>
+						</div>
+						<div>
+							<label>Amount:</label>
+							<select [(ngModel)]="item.quantity" (change)="updateAmount($event, item)">
+								<option value="0">0</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+							</select>
+						</div><br>
+						<div>
+							<div name="status">Status: {{item.status}}</div>
+						</div>
+						<div *ngIf="item.state == 1">
+							<div name="status">Delivery By: {{item.by}}</div>
+							<button (click)="setReceived($event, item)" class="received-button">Received?</button>
+						</div>
+					</div>
+				</article>
+			</section>
 		</section>
 	</section>
 	<a [routerLink]="['/search']"><button class="search-button">Find More Supplies</button></a>

@@ -216,13 +216,18 @@ app.get('/requests/:id', function(req, res) {
 });
 
 app.get('/getAllRequestedItems/:id', function(req, res) {
-	var query = "SELECT *, r.id as rid FROM subscriptions as s LEFT JOIN requests as r ON s.request=r.id LEFT JOIN items as i ON s.subscribed = i.id WHERE s.subscriber=" + req.params.id;
+	var query = "SELECT *, r.id as rid FROM subscriptions as s LEFT JOIN requests as r ON s.request=r.id LEFT JOIN items as i ON s.subscribed = i.id LEFT JOIN users as u ON i.owner=u.id WHERE s.subscriber=" + req.params.id + " ORDER BY i.owner";
+
 	sql.query(query, function (err, result) {
 		if (err) throw err;
 		console.log("query success");
 		res.send(result);
 	});
 });
+
+
+
+
 
 app.post('/setBy/:id', function(req, res) {
     var form = new formidable.IncomingForm();
