@@ -71,6 +71,8 @@ export class Item {
 	state: number;
 	by: any;
 	rid: number;
+	storename: string;
+	owner: number;
 
 	constructor(data) {
 		this.name = data.name;
@@ -83,6 +85,8 @@ export class Item {
 		this.state = data.state;
 		this.by = data.by ? new Date(data.by).toISOString().substring(0, 10) : data.by;
 		this.rid = data.rid;
+		this.storename = data.storename;
+		this.owner = data.owner;
 	}
 
 }

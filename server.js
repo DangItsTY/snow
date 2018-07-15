@@ -177,6 +177,16 @@ app.get('/allItems', function(req, res) {
 	});
 });
 
+app.get('/allItemsAndOwner', function(req, res) {
+	var query = "SELECT * FROM snow.items LEFT JOIN users on items.owner=users.id ORDER BY owner";
+	sql.query(query, function (err, result) {
+		if (err) throw err;
+		console.log("query success");
+		res.send(result);
+	});
+});
+
+
 app.get('/shopInfo/:id', function(req, res) {
 	var query = "SELECT * FROM users WHERE id=" + req.params.id + " LIMIT 1";
 	sql.query(query, function (err, result) {

@@ -23,12 +23,25 @@ export class SearchComponent {
 	getAllItems() {
 		console.log("getting all items...");
 		this.http
-		.get('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/allItems')
+		.get('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/allItemsAndOwner')
 		.subscribe(res => {
 			console.log("got all items!");
 			var results = res.json();
-			this.models = results.map((currentValue, index, array) => {
+			results = results.map((currentValue, index, array) => {
 				return new Item(currentValue);
+			});
+			
+			this.models = [];
+			for (var i = 0; i < results.length; i++) {
+				var owner = results[i].owner;
+				if (this.models[owner]) {
+					this.models[owner].push(results[i]);
+				} else {
+					this.models[owner] = [results[i]];
+				}
+			}
+			this.models = this.models.filter(function(value, index, array) {
+				return true;
 			});
 		});
 	}

@@ -56,7 +56,9 @@ button {
 h1 {
 	text-align: center;
 }
-
+h2 {
+	text-align: center;
+}
 
 .centered-container {
 	display: flex;
@@ -76,6 +78,9 @@ h1 {
 
 .itemlist {
 	margin-bottom: 21px;
+}
+.item-section-container {
+	margin-bottom: 55px;
 }
 .item-container {
 }
