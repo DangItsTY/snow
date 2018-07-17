@@ -1,0 +1,25 @@
+<section class="back-navigation">
+	<a [routerLink]="['/shop']">Back to shop</a>
+</section>
+<section id="newitem" class="centered-container">
+	<h1>Edit Item</h1>
+	<form class="flex-end-form" (ngSubmit)="onSubmit()" #itemForm="ngForm">
+		<div>
+			<label>Name:</label>
+			<input [(ngModel)]="model.name" type="text" name="name" placeholder="name">
+		</div>
+		<div>
+			<label>Description:</label>
+			<input [(ngModel)]="model.description" type="text" name="description" placeholder="description">
+		</div>
+		<div>
+			<label>Category:</label>
+			<input [(ngModel)]="model.category" type="text" name="category" placeholder="category">
+		</div>
+		<div>
+			<label>Price:</label>
+			<input [(ngModel)]="model.price" type="number" name="price" placeholder="price">
+		</div>
+		<input type="submit" value="Save">
+	</form>
+</section>

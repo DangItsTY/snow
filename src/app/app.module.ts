@@ -14,6 +14,7 @@ import { ShopComponent } from './shop/shop.component'
 import { SearchComponent } from './search/search.component'
 import { RequestsComponent } from './requests/requests.component'
 import { HeaderComponent } from './header/header.component'
+import { EdititemComponent } from './edititem/edititem.component'
 
 const appRoutes: Routes = [
 	{
@@ -44,9 +45,13 @@ const appRoutes: Routes = [
 		path: 'search',
 		component: SearchComponent
 	},
-		{
+	{
 		path: 'requests',
 		component: RequestsComponent
+	},
+	{
+		path: 'edititem/:id',
+		component: EdititemComponent
 	},
 	{
 		path: '',
@@ -78,6 +83,7 @@ const appRoutes: Routes = [
 	SearchComponent,
 	RequestsComponent,
 	HeaderComponent,
+	EdititemComponent
   ],
   imports: [
     BrowserModule,

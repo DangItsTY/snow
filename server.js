@@ -73,6 +73,22 @@ app.post('/fileupload/:id', function(req, res) {
 		sql.query(query, function (err, result) {
 			if (err) throw err;
 			console.log("1 record inserted");
+			res.send(result);
+		});
+	});
+});
+
+app.post('/edititem/:id', function(req, res) {
+    var form = new formidable.IncomingForm();
+	form.parse(req, function (err, fields, files) {
+		for (var key in fields) {
+			fields[key] = fields[key].replace("'", "''");
+		}
+		var query = "UPDATE items SET name='"+fields.name+"', description='"+fields.description+"', category='"+fields.category+"', price='"+fields.price+"' WHERE id="+req.params.id;
+		sql.query(query, function (err, result) {
+			if (err) throw err;
+			console.log("1 record updated");
+			res.send(result);
 		});
 	});
 });
@@ -168,6 +184,15 @@ app.get('/allSubscribedItems/:id', function(req, res) {
 	});
 });
 */
+
+app.get('/item/:id', function(req, res) {
+	var query = "SELECT * FROM items WHERE id=" + req.params.id;
+	sql.query(query, function (err, result) {
+		if (err) throw err;
+		console.log("query success");
+		res.send(result);
+	});
+});
 
 app.get('/allItems', function(req, res) {
 	var query = "SELECT * FROM items";

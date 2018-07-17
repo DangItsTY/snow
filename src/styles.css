@@ -75,6 +75,11 @@ h2 {
 	flex-direction: column;
 	align-items: center;
 }
+.flex-end-form {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+}
 
 .itemlist {
 	margin-bottom: 21px;
