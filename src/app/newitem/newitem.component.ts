@@ -36,6 +36,7 @@ export class NewitemComponent {
 	
 	addImageToForm() {
 		this.model.image = this.fileInput.nativeElement.files[0];
+		document.getElementById('preview').src = URL.createObjectURL(this.model.image);
 		console.log(this.model);
 		this.barcodeReader();
 	}
