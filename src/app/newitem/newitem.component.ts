@@ -35,9 +35,9 @@ export class NewitemComponent {
 	}
 	
 	addImageToForm() {
-		this.model.image = this.fileInput.nativeElement.files[0];
-		document.getElementById('preview').src = URL.createObjectURL(this.model.image);
-		console.log(this.model);
+		//this.model.image = this.fileInput.nativeElement.files[0];
+		//document.getElementById('preview').src = URL.createObjectURL(this.model.image);
+		//console.log(this.model);
 		this.barcodeReader();
 	}
 	
@@ -77,6 +77,7 @@ export class Item {
 	owner: number;
 	requestor: number;
 	username: string;
+	stock: number;
 
 	constructor(data) {
 		this.name = data.name;
@@ -94,6 +95,7 @@ export class Item {
 		this.owner = data.owner;
 		this.requestor = data.requestor;
 		this.username = data.username;
+		this.stock = data.stock;
 	}
 
 }
