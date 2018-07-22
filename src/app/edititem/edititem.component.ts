@@ -18,7 +18,7 @@ export class EdititemComponent {
 		this.activatedRoute.params.subscribe((params) => {
 			this.itemid = params['id'];
 		});
-		this.model = new Item({"name": null, "description": null, "category": null, "price": null});
+		this.model = new Item({"name": null, "description": null, "category": null, "price": null, "stock": null});	
 		this.getItem();
 	}
 	

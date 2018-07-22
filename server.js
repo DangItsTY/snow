@@ -84,7 +84,7 @@ app.post('/edititem/:id', function(req, res) {
 		for (var key in fields) {
 			fields[key] = fields[key].replace("'", "''");
 		}
-		var query = "UPDATE items SET name='"+fields.name+"', description='"+fields.description+"', category='"+fields.category+"', price='"+fields.price+"' WHERE id="+req.params.id;
+		var query = "UPDATE items SET name='"+fields.name+"', description='"+fields.description+"', category='"+fields.category+"', price='"+fields.price+"', stock='"+fields.stock+"' WHERE id="+req.params.id;
 		sql.query(query, function (err, result) {
 			if (err) throw err;
 			console.log("1 record updated");
