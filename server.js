@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var path = require('path');
-var http = require('http');
+var https = require('https');
 var formidable = require('formidable');
 var fs = require('fs');
 var mysql = require('mysql');
@@ -12,6 +12,11 @@ var sql = mysql.createConnection({
   password: "lockSmith123!@#",
   database: "snow"
 });
+
+var sslOptions = {
+	key: fs.readFileSync('key.pem'),
+	cert: fs.readFileSync('cert.pem')
+}
 
 var hostname = "localhost";
 var port = 3000;
@@ -34,6 +39,7 @@ sql.connect(function(err) {
 });
 
 app.use(express.static(__dirname + '/'));
+//app.use(express.static(__dirname + '/dist'));
 app.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -43,7 +49,7 @@ app.use(function(req, res, next) {
 app.post('/login', function(req, res) {
     var form = new formidable.IncomingForm();
 	form.parse(req, function (err, fields, files) {
-		var query = "SELECT id, supplier FROM users WHERE username='" + fields.username + "'";
+		var query = "SELECT id, supplier FROM users WHERE username='" + fields.username + "' AND password='" + fields.password + "'";
 		sql.query(query, function (err, result) {
 			console.log(err);
 			console.log(result);
@@ -294,3 +300,4 @@ app.post('/setReceived/:id', function(req, res) {
 });
 
 app.listen(port, hostname);
+//https.createServer(sslOptions, app).listen(port, hostname);
