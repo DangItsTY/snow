@@ -209,8 +209,8 @@ app.get('/allItems', function(req, res) {
 	});
 });
 
-app.get('/allItemsAndOwner', function(req, res) {
-	var query = "SELECT * FROM snow.items LEFT JOIN users on items.owner=users.id ORDER BY owner";
+app.get('/allItemsAndOwner/:filter', function(req, res) {
+	var query = "SELECT * FROM snow.items LEFT JOIN users on items.owner=users.id WHERE price <=" + req.params.filter;
 	sql.query(query, function (err, result) {
 		if (err) throw err;
 		console.log("query success");

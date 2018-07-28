@@ -23,10 +23,12 @@ input[type=submit] {
     letter-spacing: 5px;
 	text-transform: uppercase;
 }
+/*
 input[type=checkbox] {
 	width: 21px;
 	height: 21px;
 }
+*/
 input[type=date] {
 	margin-top: 0px;
 	padding: 0px;
@@ -127,4 +129,8 @@ h2 {
 .howtoapp img {
 	width: 100%;
     margin: 21px 0px;
+}
+
+.promotion {
+	text-align: center;
 }

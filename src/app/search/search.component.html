@@ -3,9 +3,16 @@
 </section>
 <section id="search">
 	<h1>Search For Items</h1>
+	<section>
+	Filter By
+	<span>
+		<input type="text" name="maxprice" placeholder="Max Price"(change)="getFilteredItems($event)">
+	</span>
+	</section>
 	<section class="itemlist">
 		<section *ngFor="let store of models" class="item-section-container">
 			<h2>{{store[0].storename}}</h2>
+			<p *ngIf="store[0].promotionmsg" class="promotion"><strong>{{store[0].promotionmsg}}</strong></p>
 			<section *ngFor="let item of store" id="item-container" class="item-container">
 				<article class="item">
 					<img [src]="item.image" class="picture" />

@@ -78,6 +78,7 @@ export class Item {
 	requestor: number;
 	username: string;
 	stock: number;
+	promotionmsg: string;
 
 	constructor(data) {
 		this.name = data.name;
@@ -96,6 +97,7 @@ export class Item {
 		this.requestor = data.requestor;
 		this.username = data.username;
 		this.stock = data.stock;
+		this.promotionmsg = data.promotionmsg;
 	}
 
 }
