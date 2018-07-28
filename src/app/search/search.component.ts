@@ -47,14 +47,19 @@ export class SearchComponent {
 	}
 	
 	updateAmount(event, model) {
-		var formData = new FormData();
-		for (var key in model) {
-			formData.append(key, model[key]);
+		if (model.stock == 0) {
+			alert("out of stock!");
+		} else {
+			this.checkOutOfStock();
+			var formData = new FormData();
+			for (var key in model) {
+				formData.append(key, model[key]);
+			}
+			this.http
+			.post('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/subscribe/'+this.userId , formData)
+			.subscribe(res => {
+				console.log("subscribed!");
+			});
 		}
-		this.http
-		.post('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/subscribe/'+this.userId , formData)
-		.subscribe(res => {
-			console.log("subscribed!");
-		});
 	}
 }
