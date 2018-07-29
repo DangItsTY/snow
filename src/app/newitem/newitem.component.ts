@@ -10,17 +10,16 @@ declare var Quagga: any;
 export class NewitemComponent {	
 	@ViewChild('fileInput') fileInput
 	@ViewChild('preview') preview;
+	@ViewChild('barcodeInput') barcodeInput;
 	model;
 	userId;
-	barcode;
 	
 	constructor(private http: Http, private router: Router) {
-		this.barcode = null;
 	}
   
 	ngOnInit() {
 		this.userId = sessionStorage.getItem("user");
-		this.model = new Item({"name": null, "description": null, "category": null, "image": null, "price": null});
+		this.model = new Item({"name": null, "description": null, "category": null, "image": null, "price": null, "barcode": null});
 	}
 	
 	onSubmit() {
@@ -38,11 +37,10 @@ export class NewitemComponent {
 	addImageToForm() {
 		this.model.image = this.fileInput.nativeElement.files[0];
 		this.preview.nativeElement.src = URL.createObjectURL(this.model.image);
-		this.barcodeReader();
 	}
 	
 	barcodeReader() {
-		var tempSrc = URL.createObjectURL(this.fileInput.nativeElement.files[0]);
+		var tempSrc = URL.createObjectURL(this.barcodeInput.nativeElement.files[0]);
 		Quagga.decodeSingle({
 			decoder: {
 				readers: ["code_128_reader"]
@@ -52,10 +50,9 @@ export class NewitemComponent {
 		}, (result) => {
 			if(result) {
 				console.log("result", result);
-				this.barcode = result.codeResult.code;
+				this.model.barcode = result.codeResult.code;
 			} else {
 				console.log("not detected");
-				this.barcode = null;
 			}
 			URL.revokeObjectURL(tempSrc);
 		});
@@ -81,6 +78,7 @@ export class Item {
 	promotionmsg: string;
 	iid: number;
 	uid: number;
+	barcode: string;
 
 	constructor(data) {
 		this.name = data.name;
@@ -102,6 +100,7 @@ export class Item {
 		this.promotionmsg = data.promotionmsg;
 		this.iid = data.iid;
 		this.uid = data.uid;
+		this.barcode = data.barcode;
 	}
 
 }
