@@ -81,7 +81,7 @@ app.post('/fileupload/:id', function(req, res) {
 				fields[key] = "'" + fields[key] + "'";
 			}
 		}
-		var query = "INSERT INTO items (name, description, category, price, owner, image, barcode) VALUES ("+fields.name+", "+fields.description+", "+fields.category+", "+fields.price+", "+req.params.id+", '/images/"+file.name+"', "+fields.barcode+")";
+		var query = "INSERT INTO items (name, description, category, price, owner, image, barcode, stock) VALUES ("+fields.name+", "+fields.description+", "+fields.category+", "+fields.price+", "+req.params.id+", '/images/"+file.name+"', "+fields.barcode+", "+fields.stock+")";
 		sql.query(query, function (err, result) {
 			if (err) throw err;
 			console.log("1 record inserted");

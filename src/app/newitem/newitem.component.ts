@@ -20,7 +20,7 @@ export class NewitemComponent {
   
 	ngOnInit() {
 		this.userId = sessionStorage.getItem("user");
-		this.model = new Item({"name": null, "description": null, "category": null, "image": null, "price": null, "barcode": null});
+		this.model = new Item({"name": null, "description": null, "category": null, "image": null, "price": null, "barcode": null, "stock": null});
 	}
 	
 	onSubmit() {

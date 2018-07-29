@@ -12,6 +12,7 @@
 		<input [(ngModel)]="model.barcode" type="text" name="barcode" placeholder="barcode">
 		<input #barcodeInput type="file" name="image" capture="camera" (change)="barcodeReader()"><br>
 		<input [(ngModel)]="model.price" type="number" name="price" placeholder="price">
+		<input [(ngModel)]="model.stock" type="number" name="stock" placeholder="stock">
 		<input type="submit" value="Add Item">
 	</form>
 </section>
