@@ -11,6 +11,9 @@
 							<div class="item-label"><strong>{{item.name}}</strong></div>
 						</div><br>
 						<div>
+							Qty: {{item.quantity}}
+						</div><br>
+						<div>
 							<label>Deliver:</label>
 							<input type="date" [(ngModel)]="item.by" (change)="setBy($event, item)"/>
 						</div><br>
