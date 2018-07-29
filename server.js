@@ -294,7 +294,20 @@ app.post('/setReceived/:id', function(req, res) {
 			if (err) throw err;
 			console.log("1 record inserted");
 			console.log(result);
-			res.send(result);
+			//	auto renew
+			var query = "INSERT INTO requests (requestor, requested, quantity) VALUES ("+fields.requestor+", "+fields.iid+", "+fields.quantity+")";
+			sql.query(query, function (err, result) {
+				console.log(err);
+				console.log(result);
+				var requestId = result.insertId;
+				// update subscription
+				var query = "UPDATE subscriptions SET request="+requestId+" WHERE subscriber="+fields.requestor+" AND subscribed="+fields.iid;
+				sql.query(query, function (err, result) {
+					console.log(err);
+					console.log(result);
+					res.send(result);
+				});
+			});
 		});						
 	});
 });
