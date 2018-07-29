@@ -1,6 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core'
 import {Http} from '@angular/http'
 import {Item} from '../newitem/newitem.component'
+import {Router} from '@angular/router'
+declare var Quagga: any;
 
 @Component({
 	selector: 'shop',
@@ -8,11 +10,13 @@ import {Item} from '../newitem/newitem.component'
 	styleUrls: ['./shop.component.css']
 })
 export class ShopComponent {
+	@ViewChild('barcodeInput') barcodeInput;
 	models = [];
 	userModel = new User();
 	userId;
+	barcode;
 	
-	constructor(private http: Http) {
+	constructor(private http: Http, private router: Router) {
 	}
   
 	ngOnInit() {
@@ -76,6 +80,36 @@ export class ShopComponent {
 				console.log(value);
 				return true;
 			});
+		});
+	}
+	
+	barcodeReader() {
+		var tempSrc = URL.createObjectURL(this.barcodeInput.nativeElement.files[0]);
+		Quagga.decodeSingle({
+			decoder: {
+				readers: ["code_128_reader"]
+			},
+			locate: true,
+			src: tempSrc
+		}, (result) => {
+			if(result) {
+				console.log("result", result);
+				this.barcode = result.codeResult.code;
+				this.navigateToEdit();
+			} else {
+				console.log("not detected");
+			}
+			URL.revokeObjectURL(tempSrc);
+		});
+	}
+	
+	navigateToEdit() {
+		this.http
+		.get('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/itemByBarcode/' + this.barcode)
+		.subscribe(res => {
+			var results = res.json();
+			var id = results[0].id;
+			this.router.navigate(['/edititem/'+id]);
 		});
 	}
 }

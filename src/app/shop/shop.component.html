@@ -1,5 +1,12 @@
 <section id="shop">
 	<h1><u>{{userModel.storename}}</u></h1>
+	<section>
+	Search By Barcode
+	<span>
+		<input [(ngModel)]="barcode" type="text" name="barcode" placeholder="barcode" (change)="navigateToEdit()">
+		<input #barcodeInput type="file" name="image" capture="camera" (change)="barcodeReader()"><br>
+	</span>
+	</section>
 	<section class="itemlist">
 		<section *ngFor="let category of models" class="item-section-container">
 			<h2>{{category[0].category}}</h2>

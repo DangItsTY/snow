@@ -206,6 +206,15 @@ app.get('/item/:id', function(req, res) {
 	});
 });
 
+app.get('/itemByBarcode/:barcode', function(req, res) {
+	var query = "SELECT * FROM items WHERE barcode=" + req.params.barcode;
+	sql.query(query, function (err, result) {
+		if (err) throw err;
+		console.log("query success");
+		res.send(result);
+	});
+});
+
 app.get('/allItems', function(req, res) {
 	var query = "SELECT * FROM items";
 	sql.query(query, function (err, result) {

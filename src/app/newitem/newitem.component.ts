@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core'
 import {Http} from '@angular/http'
 import {Router} from '@angular/router'
 declare var Quagga: any;
+
 @Component({
 	selector: 'newitem',
 	templateUrl: './newitem.component.html',
