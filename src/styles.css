@@ -67,7 +67,6 @@ h2 {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	height: 100vh;
 }
 .centered-content {
 }
@@ -133,4 +132,8 @@ h2 {
 
 .promotion {
 	text-align: center;
+}
+
+.onepage {
+	height: 100vh;
 }
