@@ -9,6 +9,7 @@ declare var Quagga: any;
 })
 export class NewitemComponent {	
 	@ViewChild('fileInput') fileInput
+	@ViewChild('preview') preview;
 	model;
 	userId;
 	barcode;
@@ -35,9 +36,8 @@ export class NewitemComponent {
 	}
 	
 	addImageToForm() {
-		//this.model.image = this.fileInput.nativeElement.files[0];
-		//document.getElementById('preview').src = URL.createObjectURL(this.model.image);
-		//console.log(this.model);
+		this.model.image = this.fileInput.nativeElement.files[0];
+		this.preview.nativeElement.src = URL.createObjectURL(this.model.image);
 		this.barcodeReader();
 	}
 	

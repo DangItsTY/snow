@@ -69,8 +69,7 @@ app.post('/fileupload/:id', function(req, res) {
 			if (err) {
 				console.log(err);
 			}
-			res.write('File uploaded and moved!');
-			res.end();
+			console.log('File uploaded and moved!');
 		});
 		for (var key in fields) {
 			fields[key] = fields[key].replace("'", "''");

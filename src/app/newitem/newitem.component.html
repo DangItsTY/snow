@@ -8,7 +8,7 @@
 		<input [(ngModel)]="model.description" type="text" name="description" placeholder="description">
 		<input [(ngModel)]="model.category" type="text" name="category" placeholder="category">
 		<input #fileInput type="file" name="image" capture="camera" (change)="addImageToForm()">
-		<br><img src="" id="preview" class="picture" alt="image preview" />
+		<br><img #preview class="picture" alt="image preview" />
 		<div class="barcode" *ngIf="barcode">Barcode: {{barcode}}</div>
 		<input [(ngModel)]="model.price" type="number" name="price" placeholder="price">
 		<input type="submit" value="Add Item">
