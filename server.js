@@ -74,7 +74,14 @@ app.post('/fileupload/:id', function(req, res) {
 		for (var key in fields) {
 			fields[key] = fields[key].replace("'", "''");
 		}
-		var query = "INSERT INTO items (name, description, category, price, owner, image) VALUES ('"+fields.name+"', '"+fields.description+"', '"+fields.category+"', '"+fields.price+"', "+req.params.id+", '/images/"+file.name+"')";
+		for (var key in fields) {
+			if (fields[key] == "null") {
+				fields[key] = "default";
+			} else {
+				fields[key] = "'" + fields[key] + "'";
+			}
+		}
+		var query = "INSERT INTO items (name, description, category, price, owner, image) VALUES ("+fields.name+", "+fields.description+", "+fields.category+", "+fields.price+", "+req.params.id+", '/images/"+file.name+"')";
 		sql.query(query, function (err, result) {
 			if (err) throw err;
 			console.log("1 record inserted");
