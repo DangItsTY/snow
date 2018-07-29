@@ -79,6 +79,8 @@ export class Item {
 	username: string;
 	stock: number;
 	promotionmsg: string;
+	iid: number;
+	uid: number;
 
 	constructor(data) {
 		this.name = data.name;
@@ -98,6 +100,8 @@ export class Item {
 		this.username = data.username;
 		this.stock = data.stock;
 		this.promotionmsg = data.promotionmsg;
+		this.iid = data.iid;
+		this.uid = data.uid;
 	}
 
 }

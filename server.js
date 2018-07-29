@@ -118,20 +118,20 @@ app.post('/addaccount', function(req, res) {
 app.post('/subscribe/:id', function(req, res) {
 	var form = new formidable.IncomingForm();
 	form.parse(req, function (err, fields, files) {
-		var query = "SELECT * FROM subscriptions WHERE subscriber="+req.params.id+" AND subscribed="+fields.id;
+		var query = "SELECT * FROM subscriptions WHERE subscriber="+req.params.id+" AND subscribed="+fields.iid;
 		sql.query(query, function (err, result) {
 			console.log(err);
 			console.log(result);
 			console.log(fields);
 			if (result.length == 0) {
 				// make new request
-				var query = "INSERT INTO requests (requestor, item, quantity) VALUES ("+req.params.id+", "+fields.id+", "+fields.quantity+")";
+				var query = "INSERT INTO requests (requestor, requested, quantity) VALUES ("+req.params.id+", "+fields.iid+", "+fields.quantity+")";
 				sql.query(query, function (err, result) {
 					console.log(err);
 					console.log(result);
 					var requestId = result.insertId;
 					// make new subscription
-					var query = "INSERT INTO subscriptions (subscriber, subscribed, request) VALUES ("+req.params.id+", "+fields.id+", "+requestId+")";
+					var query = "INSERT INTO subscriptions (subscriber, subscribed, request) VALUES ("+req.params.id+", "+fields.iid+", "+requestId+")";
 					sql.query(query, function (err, result) {
 						console.log(err);
 						console.log(result);
@@ -143,7 +143,7 @@ app.post('/subscribe/:id', function(req, res) {
 				var subscriptionId = result[0].id;
 				if (requestId == null) {
 					// make new request
-					var query = "INSERT INTO requests (requestor, item, quantity) VALUES ("+req.params.id+", "+fields.id+", "+fields.quantity+")";
+					var query = "INSERT INTO requests (requestor, requested, quantity) VALUES ("+req.params.id+", "+fields.iid+", "+fields.quantity+")";
 					sql.query(query, function (err, result) {
 						console.log(err);
 						console.log(result);
@@ -210,7 +210,7 @@ app.get('/allItems', function(req, res) {
 });
 
 app.get('/allItemsAndOwner/:filter', function(req, res) {
-	var query = "SELECT * FROM snow.items LEFT JOIN users on items.owner=users.id WHERE price <=" + req.params.filter;
+	var query = "SELECT *, items.id as iid, users.id as uid FROM snow.items LEFT JOIN users on items.owner=users.id WHERE price <=" + req.params.filter;
 	sql.query(query, function (err, result) {
 		if (err) throw err;
 		console.log("query success");
@@ -248,7 +248,7 @@ app.get('/requests/:id', function(req, res) {
 });
 
 app.get('/getAllRequestedItems/:id', function(req, res) {
-	var query = "SELECT *, r.id as rid FROM subscriptions as s LEFT JOIN requests as r ON s.request=r.id LEFT JOIN items as i ON s.subscribed = i.id LEFT JOIN users as u ON i.owner=u.id WHERE s.subscriber=" + req.params.id + " ORDER BY i.owner";
+	var query = "SELECT *, r.id as rid, i.id as iid FROM subscriptions as s LEFT JOIN requests as r ON s.request=r.id LEFT JOIN items as i ON s.subscribed = i.id LEFT JOIN users as u ON i.owner=u.id WHERE s.subscriber=" + req.params.id + " ORDER BY i.owner";
 
 	sql.query(query, function (err, result) {
 		if (err) throw err;
