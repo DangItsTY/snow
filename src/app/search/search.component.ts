@@ -17,13 +17,13 @@ export class SearchComponent {
   
 	ngOnInit() {
 		this.userId = sessionStorage.getItem("user");
-		this.getAllItems();
+		this.getAllItems(999999);
 	}
 	
-	getAllItems() {
+	getAllItems(maxPriceFilter) {
 		console.log("getting all items...");
 		this.http
-		.get('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/allItemsAndOwner')
+		.get('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/allItemsAndOwner/'+maxPriceFilter)
 		.subscribe(res => {
 			console.log("got all items!");
 			var results = res.json();
@@ -47,14 +47,23 @@ export class SearchComponent {
 	}
 	
 	updateAmount(event, model) {
-		var formData = new FormData();
-		for (var key in model) {
-			formData.append(key, model[key]);
+		if (model.stock == 0) {
+			alert("out of stock!");
+		} else {
+			var formData = new FormData();
+			for (var key in model) {
+				formData.append(key, model[key]);
+			}
+			this.http
+			.post('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/subscribe/'+this.userId , formData)
+			.subscribe(res => {
+				console.log("subscribed!");
+			});
 		}
-		this.http
-		.post('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/subscribe/'+this.userId , formData)
-		.subscribe(res => {
-			console.log("subscribed!");
-		});
+	}
+	
+	getFilteredItems(event) {
+		var maxPrice = event.target.value;
+		this.getAllItems(maxPrice);
 	}
 }

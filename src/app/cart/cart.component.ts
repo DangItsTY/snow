@@ -61,6 +61,7 @@ export class CartComponent {
 				this.models = this.models.filter(function(value, index, array) {
 					return true;
 				});
+				console.log(this.models);
 			});
 	}
 	

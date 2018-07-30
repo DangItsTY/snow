@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var path = require('path');
-var http = require('http');
+var https = require('https');
 var formidable = require('formidable');
 var fs = require('fs');
 var mysql = require('mysql');
@@ -12,6 +12,11 @@ var sql = mysql.createConnection({
   password: "lockSmith123!@#",
   database: "snow"
 });
+
+var sslOptions = {
+	key: fs.readFileSync('key.pem'),
+	cert: fs.readFileSync('cert.pem')
+}
 
 var hostname = "localhost";
 var port = 3000;
@@ -34,6 +39,7 @@ sql.connect(function(err) {
 });
 
 app.use(express.static(__dirname + '/'));
+//app.use(express.static(__dirname + '/dist'));
 app.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -43,7 +49,7 @@ app.use(function(req, res, next) {
 app.post('/login', function(req, res) {
     var form = new formidable.IncomingForm();
 	form.parse(req, function (err, fields, files) {
-		var query = "SELECT id, supplier FROM users WHERE username='" + fields.username + "'";
+		var query = "SELECT id, supplier FROM users WHERE username='" + fields.username + "' AND password='" + fields.password + "'";
 		sql.query(query, function (err, result) {
 			console.log(err);
 			console.log(result);
@@ -63,13 +69,19 @@ app.post('/fileupload/:id', function(req, res) {
 			if (err) {
 				console.log(err);
 			}
-			res.write('File uploaded and moved!');
-			res.end();
+			console.log('File uploaded and moved!');
 		});
 		for (var key in fields) {
 			fields[key] = fields[key].replace("'", "''");
 		}
-		var query = "INSERT INTO items (name, description, category, price, owner, image) VALUES ('"+fields.name+"', '"+fields.description+"', '"+fields.category+"', '"+fields.price+"', "+req.params.id+", '/images/"+file.name+"')";
+		for (var key in fields) {
+			if (fields[key] == "null") {
+				fields[key] = "default";
+			} else {
+				fields[key] = "'" + fields[key] + "'";
+			}
+		}
+		var query = "INSERT INTO items (name, description, category, price, owner, image, barcode, stock) VALUES ("+fields.name+", "+fields.description+", "+fields.category+", "+fields.price+", "+req.params.id+", '/images/"+file.name+"', "+fields.barcode+", "+fields.stock+")";
 		sql.query(query, function (err, result) {
 			if (err) throw err;
 			console.log("1 record inserted");
@@ -112,20 +124,20 @@ app.post('/addaccount', function(req, res) {
 app.post('/subscribe/:id', function(req, res) {
 	var form = new formidable.IncomingForm();
 	form.parse(req, function (err, fields, files) {
-		var query = "SELECT * FROM subscriptions WHERE subscriber="+req.params.id+" AND subscribed="+fields.id;
+		var query = "SELECT * FROM subscriptions WHERE subscriber="+req.params.id+" AND subscribed="+fields.iid;
 		sql.query(query, function (err, result) {
 			console.log(err);
 			console.log(result);
 			console.log(fields);
 			if (result.length == 0) {
 				// make new request
-				var query = "INSERT INTO requests (requestor, item, quantity) VALUES ("+req.params.id+", "+fields.id+", "+fields.quantity+")";
+				var query = "INSERT INTO requests (requestor, requested, quantity) VALUES ("+req.params.id+", "+fields.iid+", "+fields.quantity+")";
 				sql.query(query, function (err, result) {
 					console.log(err);
 					console.log(result);
 					var requestId = result.insertId;
 					// make new subscription
-					var query = "INSERT INTO subscriptions (subscriber, subscribed, request) VALUES ("+req.params.id+", "+fields.id+", "+requestId+")";
+					var query = "INSERT INTO subscriptions (subscriber, subscribed, request) VALUES ("+req.params.id+", "+fields.iid+", "+requestId+")";
 					sql.query(query, function (err, result) {
 						console.log(err);
 						console.log(result);
@@ -137,7 +149,7 @@ app.post('/subscribe/:id', function(req, res) {
 				var subscriptionId = result[0].id;
 				if (requestId == null) {
 					// make new request
-					var query = "INSERT INTO requests (requestor, item, quantity) VALUES ("+req.params.id+", "+fields.id+", "+fields.quantity+")";
+					var query = "INSERT INTO requests (requestor, requested, quantity) VALUES ("+req.params.id+", "+fields.iid+", "+fields.quantity+")";
 					sql.query(query, function (err, result) {
 						console.log(err);
 						console.log(result);
@@ -194,6 +206,15 @@ app.get('/item/:id', function(req, res) {
 	});
 });
 
+app.get('/itemByBarcode/:barcode', function(req, res) {
+	var query = "SELECT * FROM items WHERE barcode=" + req.params.barcode;
+	sql.query(query, function (err, result) {
+		if (err) throw err;
+		console.log("query success");
+		res.send(result);
+	});
+});
+
 app.get('/allItems', function(req, res) {
 	var query = "SELECT * FROM items";
 	sql.query(query, function (err, result) {
@@ -203,8 +224,8 @@ app.get('/allItems', function(req, res) {
 	});
 });
 
-app.get('/allItemsAndOwner', function(req, res) {
-	var query = "SELECT * FROM snow.items LEFT JOIN users on items.owner=users.id ORDER BY owner";
+app.get('/allItemsAndOwner/:filter', function(req, res) {
+	var query = "SELECT *, items.id as iid, users.id as uid FROM snow.items LEFT JOIN users on items.owner=users.id WHERE price <=" + req.params.filter;
 	sql.query(query, function (err, result) {
 		if (err) throw err;
 		console.log("query success");
@@ -242,7 +263,7 @@ app.get('/requests/:id', function(req, res) {
 });
 
 app.get('/getAllRequestedItems/:id', function(req, res) {
-	var query = "SELECT *, r.id as rid FROM subscriptions as s LEFT JOIN requests as r ON s.request=r.id LEFT JOIN items as i ON s.subscribed = i.id LEFT JOIN users as u ON i.owner=u.id WHERE s.subscriber=" + req.params.id + " ORDER BY i.owner";
+	var query = "SELECT *, r.id as rid, i.id as iid FROM subscriptions as s LEFT JOIN requests as r ON s.request=r.id LEFT JOIN items as i ON s.subscribed = i.id LEFT JOIN users as u ON i.owner=u.id WHERE s.subscriber=" + req.params.id + " ORDER BY i.owner";
 
 	sql.query(query, function (err, result) {
 		if (err) throw err;
@@ -288,9 +309,23 @@ app.post('/setReceived/:id', function(req, res) {
 			if (err) throw err;
 			console.log("1 record inserted");
 			console.log(result);
-			res.send(result);
+			//	auto renew
+			var query = "INSERT INTO requests (requestor, requested, quantity) VALUES ("+fields.requestor+", "+fields.iid+", "+fields.quantity+")";
+			sql.query(query, function (err, result) {
+				console.log(err);
+				console.log(result);
+				var requestId = result.insertId;
+				// update subscription
+				var query = "UPDATE subscriptions SET request="+requestId+" WHERE subscriber="+fields.requestor+" AND subscribed="+fields.iid;
+				sql.query(query, function (err, result) {
+					console.log(err);
+					console.log(result);
+					res.send(result);
+				});
+			});
 		});						
 	});
 });
 
 app.listen(port, hostname);
+//https.createServer(sslOptions, app).listen(port, hostname);
