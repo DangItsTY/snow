@@ -57,6 +57,7 @@ export class SearchComponent {
 			this.http
 			.post('http://'+sessionStorage.getItem("hostname")+":"+sessionStorage.getItem("port")+'/subscribe/'+this.userId , formData)
 			.subscribe(res => {
+				alert("item ordered!");
 				console.log("subscribed!");
 			});
 		}
