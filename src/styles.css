@@ -137,3 +137,7 @@ h2 {
 .onepage {
 	height: 100vh;
 }
+
+.error {
+	color: red;
+}

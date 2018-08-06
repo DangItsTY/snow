@@ -4,14 +4,38 @@
 <section id="loginsignup">
 <section id="signup" class="centered-container">
 <form class="centered-content" (ngSubmit)="onSubmit()" #signupForm="ngForm">
-	<input [(ngModel)]="model.firstname" type="text" name="firstname" placeholder="first name" required><br>
-	<input [(ngModel)]="model.lastname" type="text" name="lastname" placeholder="last name" required><br>
-	<input [(ngModel)]="model.email" type="email" name="email" placeholder="email" required><br>
-	<input [(ngModel)]="model.phone" type="tel" name="phone" placeholder="phone" required><br>
-	<input [(ngModel)]="model.storename" type="text" name="storename" placeholder="store name" required><br>
-	<input [(ngModel)]="model.storeaddress" type="text" name="storeaddress" placeholder="store address" required><br>
-	<input [(ngModel)]="model.username" type="text" name="username" placeholder="username" required><br>
-	<input [(ngModel)]="model.password" type="password" name="password" placeholder="password" required><br>
+	<input [(ngModel)]="model.firstname" type="text" name="firstname" placeholder="first name" required #firstname="ngModel"><br>
+	<div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched) && firstname.errors.required" class="error">
+		required
+	</div>
+	<input [(ngModel)]="model.lastname" type="text" name="lastname" placeholder="last name" required #lastname="ngModel"><br>
+	<div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched) && lastname.errors.required" class="error">
+		required
+	</div>
+	<input [(ngModel)]="model.email" type="email" name="email" placeholder="email" required #email="ngModel"><br>
+	<div *ngIf="email.invalid && (email.dirty || email.touched) && email.errors.required" class="error">
+		required
+	</div>
+	<input [(ngModel)]="model.phone" type="tel" name="phone" placeholder="phone" required #phone="ngModel"><br>
+	<div *ngIf="phone.invalid && (phone.dirty || phone.touched) && phone.errors.required" class="error">
+		required
+	</div>
+	<input [(ngModel)]="model.storename" type="text" name="storename" placeholder="store name" required #storename="ngModel"><br>
+	<div *ngIf="storename.invalid && (storename.dirty || storename.touched) && storename.errors.required" class="error">
+		required
+	</div>
+	<input [(ngModel)]="model.storeaddress" type="text" name="storeaddress" placeholder="store address" required #storeaddress="ngModel"><br>
+	<div *ngIf="storeaddress.invalid && (storeaddress.dirty || storeaddress.touched) && storeaddress.errors.required" class="error">
+		required
+	</div>
+	<input [(ngModel)]="model.username" type="text" name="username" placeholder="username" required #username="ngModel"><br>
+	<div *ngIf="username.invalid && (username.dirty || username.touched) && username.errors.required" class="error">
+		required
+	</div>
+	<input [(ngModel)]="model.password" type="password" name="password" placeholder="password" required #password="ngModel"><br>
+	<div *ngIf="password.invalid && (password.dirty || password.touched) && password.errors.required" class="error">
+		required
+	</div>
 	<input type="password" name="passwordconfirm" placeholder="confirm password" required><br>
 	<!--<label>Are you a supplier?</label><input [(ngModel)]="model.supplier" type="checkbox" name="supplier"><br>-->
 	<input type="submit" [disabled]="!signupForm.form.valid" value="SIGNUP">
