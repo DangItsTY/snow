@@ -39,12 +39,12 @@ export class AppComponent {
 		//sessionStorage.setItem("port", "169");
 		
 		//	for default local server
-		sessionStorage.setItem("hostname", "localhost");
-		sessionStorage.setItem("port", "3000");
+		//sessionStorage.setItem("hostname", "localhost");
+		//sessionStorage.setItem("port", "3000");
 		
 		//	for serving public
-		//sessionStorage.setItem("hostname", "72.66.74.203");
-		//sessionStorage.setItem("port", "80");
+		sessionStorage.setItem("hostname", "72.66.74.203");
+		sessionStorage.setItem("port", "80");
 	}
 
 	/* //	Builds

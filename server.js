@@ -13,17 +13,20 @@ var sql = mysql.createConnection({
   database: "snow"
 });
 
+/*
 var sslOptions = {
 	key: fs.readFileSync('key.pem'),
 	cert: fs.readFileSync('cert.pem')
 }
+*/
 
-var hostname = "localhost";
-var port = 3000;
+//	for public
+var hostname = "192.168.1.2";
+var port = 80;
 
 //	for default local setup
 //var hostname = "localhost";
-///var port = 3000;
+//var port = 3000;
 
 //var hostname = "192.168.1.2";
 //var port = 8080;
@@ -39,7 +42,6 @@ sql.connect(function(err) {
 });
 
 app.use(express.static(__dirname + '/'));
-//app.use(express.static(__dirname + '/dist'));
 app.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
